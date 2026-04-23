@@ -369,12 +369,14 @@ export default function HomeContent() {
                   </div>
                   <span className="text-gray-700 font-medium tracking-wide">byulsi@naver.com</span>
                 </div>
-                <div className="flex items-center gap-3 md:gap-4 group cursor-pointer p-3 md:p-4 rounded-2xl hover:bg-[#FFF9C4]/30 transition-colors border border-transparent hover:border-[#FEE500]/50">
-                  <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-[#FEE500] flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-sm">
-                    <MessageCircle className="w-4 h-4 md:w-5 md:h-5 text-[#371D1E]" />
+                <a href="http://pf.kakao.com/_GxhGjX/chat" target="_blank" rel="noopener noreferrer" className="text-gray-800 font-semibold tracking-wide">
+                  <div className="flex items-center gap-3 md:gap-4 group cursor-pointer p-3 md:p-4 rounded-2xl hover:bg-[#FFF9C4]/30 transition-colors border border-transparent hover:border-[#FEE500]/50">
+                    <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-[#FEE500] flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-sm">
+                      <MessageCircle className="w-4 h-4 md:w-5 md:h-5 text-[#371D1E]" />
+                    </div>
+                      카카오톡 실시간 상담
                   </div>
-                  <span className="text-gray-800 font-semibold tracking-wide">카카오톡 실시간 상담</span>
-                </div>
+                </a>
               </div>
             </FadeInUp>
 
