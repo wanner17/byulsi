@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Nav from "./components/Nav";
+import RightNav from "./components/RightNav";
 
 const inter = Inter({ subsets: ["latin"], weight: ["300", "400", "500", "700"] });
 
@@ -23,7 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="scroll-smooth">
-      <body className={`${inter.className} bg-[#0A1128] text-slate-200 antialiased`}>{children}</body>
+      <body className={`${inter.className} bg-[#0A1128] text-slate-200 antialiased`}>
+        <Nav />
+        <RightNav />
+        {children}
+      </body>
     </html>
   );
 }
