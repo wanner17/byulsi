@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Phone, Mail, MessageCircle, ChevronDown } from "lucide-react";
 
@@ -34,6 +35,8 @@ const FadeInUp = ({
 );
 
 export default function AboutContent() {
+  const [isRevealed, setIsRevealed] = useState(false);
+
   return (
     <div className="w-full overflow-x-hidden font-sans bg-[#0A1128] text-white">
       
@@ -128,7 +131,8 @@ export default function AboutContent() {
                   className="bg-[#16213E]/60 backdrop-blur-xl border border-white/10 p-12 rounded-[40px] shadow-2xl text-center cursor-pointer group"
                   initial="rest"
                   whileHover="hover"
-                  animate="rest"
+                  animate={isRevealed ? "hover" : "rest"}
+                  onClick={() => setIsRevealed(!isRevealed)}
                 >
                   <div className="relative w-full aspect-square flex items-center justify-center">
                     {/* 기본: logo.png */}
@@ -158,7 +162,7 @@ export default function AboutContent() {
                   <div className="mt-10 space-y-2">
                     <p className="text-[#F4D03F] text-xs tracking-[0.4em] font-bold uppercase opacity-60">Concept Reveal</p>
                     <p className="text-slate-300 text-sm font-light leading-relaxed">
-                      이미지에 마우스를 올려<br />변화하는 가치를 확인해보세요.
+                      이미지에 마우스를 올리거나 터치하여<br />변화하는 가치를 확인해보세요.
                     </p>
                   </div>
                 </motion.div>
