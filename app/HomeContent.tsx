@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useScroll, animate, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useScroll, animate, useInView, useMotionTemplate, AnimatePresence } from "framer-motion";
 import { Star, Phone, Mail, MessageCircle, ChevronDown, Sparkles } from "lucide-react";
 
 /**
@@ -57,6 +57,15 @@ const AnimatedNumber = ({ value }: { value: number }) => {
 };
 
 export default function HomeContent() {
+  // 스플래시 스크린 상태 관리
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    // 2초 후에 스플래시 화면을 숨깁니다.
+    const timer = setTimeout(() => setShowSplash(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   // 마우스 위치 추적을 위한 Motion Value
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -89,6 +98,15 @@ export default function HomeContent() {
   const rotateX = useTransform(smoothMouseY, [-1, 1], [15, -15]);
   const rotateY = useTransform(smoothMouseX, [-1, 1], [-15, 15]);
 
+  // OUR IMPACT 카드 스포트라이트(조명) 효과용 마우스 좌표
+  const cardMouseX = useMotionValue(0);
+  const cardMouseY = useMotionValue(0);
+  const handleCardMouseMove = (e: any) => {
+    const { left, top } = e.currentTarget.getBoundingClientRect();
+    cardMouseX.set(e.clientX - left);
+    cardMouseY.set(e.clientY - top);
+  };
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       // 화면 정중앙을 0, 끝을 1/-1로 정규화
@@ -109,6 +127,33 @@ export default function HomeContent() {
   return (
     <motion.div style={{ backgroundColor }} className="w-full overflow-x-hidden font-sans text-[#0A1128]">
       
+      {/* Splash (Loading) Screen */}
+      <AnimatePresence>
+        {showSplash && (
+          <motion.div
+            key="splash"
+            initial={{ opacity: 1 }}
+            exit={{ y: "-100%", opacity: 0 }}
+            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-[999999] flex flex-col items-center justify-center bg-[#0A1128] pointer-events-auto"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+              className="flex flex-col items-center"
+            >
+              <img src="/logo.png" alt="BYULSI" className="w-20 h-20 md:w-24 md:h-24 mb-8 object-contain filter drop-shadow-[0_0_20px_rgba(201,168,76,0.6)]" />
+              <h1 className="text-2xl md:text-3xl font-light tracking-[0.4em] text-white flex items-center gap-4">
+                <span className="w-12 md:w-16 h-px bg-gradient-to-r from-transparent to-[#C9A84C]" />
+                BYULSI
+                <span className="w-12 md:w-16 h-px bg-gradient-to-l from-transparent to-[#C9A84C]" />
+              </h1>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Custom Cursor Trail (PC에서만 표시) */}
       <motion.div
         className="fixed top-0 left-0 w-10 h-10 rounded-full border-2 border-[#C9A84C] pointer-events-none z-[9999] hidden md:flex items-center justify-center shadow-[0_0_15px_rgba(201,168,76,0.4)]"
@@ -125,15 +170,23 @@ export default function HomeContent() {
         {/* Background Glows */}
         <motion.div 
           style={{ x: moveX_sm, y: moveY_sm }}
-          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }} 
+          animate={{ 
+            scale: [1, 1.1, 1], 
+            opacity: [0.3, 0.5, 0.3],
+            backgroundColor: ["#dbeafe", "#fef3c7", "#dbeafe"] // Color cycling (Aurora effect)
+          }} 
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 -left-20 w-96 h-96 bg-blue-100/50 rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
+          className="absolute top-1/4 -left-20 w-96 h-96 rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
         />
         <motion.div 
           style={{ x: moveX_lg, y: moveY_lg }}
-          animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }} 
+          animate={{ 
+            scale: [1, 1.2, 1], 
+            opacity: [0.2, 0.4, 0.2],
+            backgroundColor: ["#fef3c7", "#f3e8ff", "#fef3c7"] // Color cycling
+          }} 
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] bg-amber-100/40 rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
+          className="absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
         />
 
         {/* Background Scrolling Marquee (텍스트 티커 애니메이션) */}
@@ -150,7 +203,12 @@ export default function HomeContent() {
 
         <div className="relative z-10 max-w-6xl w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
           {/* 부모 div에 perspective를 주어 3D 효과 활성화 */}
-          <div style={{ perspective: 1000 }} className="w-64 h-64 md:w-96 md:h-96 relative">
+          <motion.div 
+            animate={{ y: [-15, 15, -15] }}
+            transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+            style={{ perspective: 1000 }} 
+            className="w-64 h-64 md:w-96 md:h-96 relative"
+          >
             <motion.img
               src="/logo.png" 
               alt="BYULSI Logo"
@@ -160,7 +218,7 @@ export default function HomeContent() {
               className="w-full h-full object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.15)]"
               style={{ rotateX, rotateY }}
             />
-          </div>
+          </motion.div>
 
           <div className="text-center md:text-left">
             <FadeInUp delay={0.2}>
@@ -320,11 +378,29 @@ export default function HomeContent() {
               </div>
             </FadeInUp>
 
-            <FadeInUp delay={0.2} className="relative overflow-hidden bg-gradient-to-br from-[#0A1128] to-[#1E2E5C] p-8 md:p-12 rounded-3xl text-white flex flex-col justify-center shadow-2xl border border-white/10">
-              {/* Decorative background element for Impact card */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-              
-              <div className="relative z-10">
+            <FadeInUp delay={0.2} className="h-full">
+              <div 
+                onMouseMove={handleCardMouseMove}
+                className="group relative overflow-hidden bg-gradient-to-br from-[#0A1128] to-[#1E2E5C] p-8 md:p-12 rounded-3xl text-white flex flex-col justify-center shadow-2xl border border-white/10 h-full"
+              >
+                {/* Spotlight Hover Glow Effect */}
+                <motion.div
+                  className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-500 group-hover:opacity-100 z-20"
+                  style={{
+                    background: useMotionTemplate`
+                      radial-gradient(
+                        400px circle at ${cardMouseX}px ${cardMouseY}px,
+                        rgba(201, 168, 76, 0.25),
+                        transparent 80%
+                      )
+                    `,
+                  }}
+                />
+
+                {/* Decorative background element for Impact card */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none z-0" />
+                
+                <div className="relative z-10">
                 <p className="text-[#C9A84C] text-sm font-semibold tracking-[0.2em] mb-4 flex items-center gap-2">
                   <Sparkles size={16} /> OUR IMPACT
                 </p>
@@ -342,6 +418,7 @@ export default function HomeContent() {
                     <p className="text-gray-400 text-xs mt-2 uppercase tracking-widest font-medium">Partners</p>
                   </div>
                 </div>
+              </div>
               </div>
             </FadeInUp>
           </div>
