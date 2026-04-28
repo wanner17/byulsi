@@ -143,12 +143,28 @@ export default function HomeContent() {
               transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
               className="flex flex-col items-center"
             >
-              <img src="/logo.png" alt="BYULSI" className="w-20 h-20 md:w-24 md:h-24 mb-8 object-contain filter drop-shadow-[0_0_20px_rgba(201,168,76,0.6)]" />
+              <img 
+                src="/logo.png" 
+                alt="BYULSI" 
+                className="w-20 h-20 md:w-24 md:h-24 mb-8 object-contain filter drop-shadow-[0_0_20px_rgba(201,168,76,0.6)]" 
+              />
+              
+              {/* 영문 브랜드명 */}
               <h1 className="text-2xl md:text-3xl font-light tracking-[0.4em] text-white flex items-center gap-4">
                 <span className="w-12 md:w-16 h-px bg-gradient-to-r from-transparent to-[#C9A84C]" />
                 BYULSI
                 <span className="w-12 md:w-16 h-px bg-gradient-to-l from-transparent to-[#C9A84C]" />
               </h1>
+
+              {/* ── 추가된 한글 브랜드명 부분 ── */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.8 }} // 영문명보다 조금 늦게 나타나도록 설정
+                className="mt-4 text-sm md:text-base text-[#C9A84C] font-light tracking-[0.6em] ml-[0.6em]" 
+              >
+                별다섯시간
+              </motion.p>
             </motion.div>
           </motion.div>
         )}
@@ -225,7 +241,7 @@ export default function HomeContent() {
               <p className="text-[#8B7355] text-lg md:text-xl font-light tracking-[0.2em] mb-4">
                 새로운 시각, 끊임없는 물음
               </p>
-              <h1 className="text-4xl md:text-6xl font-medium tracking-tight mb-8 text-[#0A1128] leading-tight">
+              <h1 className="text-4xl md:text-5xl font-medium tracking-tight mb-8 text-[#0A1128] leading-tight">
                 가치 있는 시간을 <br className="md:hidden" />
                 <motion.span 
                   animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}

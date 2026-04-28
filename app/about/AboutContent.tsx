@@ -43,7 +43,11 @@ export default function AboutContent() {
       {/* ── SECTION 1: Hero Banner ── */}
       <section id="hero" className="relative h-screen flex flex-col items-center justify-center px-8 overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/hero-bg.png" alt="" className="w-full h-full object-cover" />
+          {/* 
+             이미지가 잘리는 위치 조절: object-center(중앙), object-top(상단 위주), object-bottom(하단 위주)
+             빈 공간이 생기더라도 전체를 다 보여주려면 object-cover 대신 object-contain 사용
+          */}
+          <img src="/about-bg.png" alt="About Background" className="w-full h-full object-cover object-center" />
           <div className="absolute inset-0 bg-[#0A1128]/70" />
         </div>
         
