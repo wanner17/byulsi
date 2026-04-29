@@ -85,20 +85,26 @@ export default function AboutContent() {
             
             {/* 왼쪽: 텍스트 설명 영역 */}
             <FadeInUp className="md:w-1/2">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-10 tracking-tight">
                 BYULSI, 별다섯시간은
               </h2>
-              <div className="space-y-10 text-slate-300 text-lg md:text-xl leading-relaxed font-light break-keep">
+              
+              <div className="space-y-10 text-slate-300 text-lg md:text-xl leading-relaxed font-light">
+                
                 <p>
-                  같은 시간도 어떤 시선으로 바라보느냐에 따라<br />
+                  같은 시간도 어떤 시선으로{" "} {/* PC에서 '시선으로' 뒤 띄어쓰기 강제 부여 */}
+                  <br className="md:hidden" /> 
+                  바라보느냐에 따라<br className="hidden md:block" /> 
                   전혀 다른 경험이 된다고 믿습니다.
                 </p>
+                
                 <p>
-                  기업, 학교, 공공기관 등 다양한 현장에서<br />
-                  각 대상과 목적에 맞는 과정과 경험을 설계합니다.
+                  기업, 학교, 공공기관 등 다양한 현장에서{" "} {/* PC에서 '현장에서' 뒤 띄어쓰기 강제 부여 */}
+                  <br className="md:hidden" />
+                  각 대상과 목적에 맞는<br className="md:hidden" />
+                  과정과 경험을 설계합니다.
                 </p>
                 
-                {/* 하단 강조 문구: 이미지와 동일하게 줄바꿈 처리 */}
                 <div className="pt-6">
                   <motion.p 
                     className="text-white text-xl md:text-2xl font-medium leading-snug border-l-4 border-[#C9A84C] pl-6"
@@ -106,8 +112,10 @@ export default function AboutContent() {
                     viewport={{ once: true }}
                     transition={{ duration: 1, delay: 0.5 }}
                   >
-                    세로로 회전하면 <span className="text-[#F4D03F] font-bold text-shadow-glow">물음표의 형태</span>가 되어<br />
-                    <span className="text-[#F4D03F]">끊임없는 질문</span>과 <span className="text-[#F4D03F]">새로운 가능성</span>을 상징합니다.
+                    세로로 회전하면<br className="md:hidden" />
+                    <span className="text-[#F4D03F] font-bold text-shadow-glow"> 물음표의 형태</span>가 되어<br />
+                    <span className="text-[#F4D03F]">끊임없는 질문</span>과<br className="md:hidden" />
+                    <span className="text-[#F4D03F]"> 새로운 가능성</span>을 상징합니다.
                   </motion.p>
                 </div>
               </div>
@@ -174,45 +182,6 @@ export default function AboutContent() {
               </div>
             </FadeInUp>
           </div>
-        </div>
-
-        <motion.button
-          onClick={() => scrollToSection("philosophy")}
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-10 flex flex-col items-center group cursor-pointer"
-        >
-          <span className="text-[10px] tracking-[0.3em] text-gray-500 mb-2 border border-gray-700 px-4 py-2 rounded-full group-hover:border-gray-400 transition-colors">
-            PHILOSOPHY
-          </span>
-          <ChevronDown className="text-gray-500 w-5 h-5" />
-        </motion.button>
-      </section>
-
-      {/* ── SECTION 3: Philosophy Text ── */}
-      <section id="philosophy" className="py-32 px-6 bg-white text-[#0A1128]">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-20">
-          <FadeInUp className="md:w-3/5">
-            <p className="text-2xl md:text-4xl leading-[1.6] font-light">
-              꼭 하늘을 보지 않아도<br />
-              <strong className="font-bold text-[#C9A84C]">작은 물 위에도 별은 비칩니다.</strong>
-            </p>
-            <div className="w-16 h-1 bg-[#C9A84C] my-10" />
-            <div className="space-y-6 text-xl md:text-2xl text-gray-600 font-light leading-relaxed">
-              <p>우리는 그렇게 새로운 시각으로 세상을 바라봅니다.</p>
-              <p>같은 시간도 다르게 바라보고,<br />그 안에서 더 나은 가치를 만듭니다.</p>
-            </div>
-          </FadeInUp>
-          
-          <FadeInUp delay={0.3} className="md:w-2/5 flex justify-center">
-            <motion.img 
-              src="/logo.png" 
-              alt="BYULSI" 
-              className="w-64 h-64 md:w-80 md:h-80 object-contain grayscale opacity-20"
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </FadeInUp>
         </div>
       </section>
     </div>
