@@ -114,10 +114,8 @@ export default function WorkContent() {
                 title: "행사 기획·주관",
                 desc: (
                   <>
-                    단순한 이벤트를 넘어 {/* 모바일 전용 줄바꿈 */}
-                    <br className="md:hidden" /> 
-                    메시지가 전달되는 {/* PC 전용 줄바꿈 */}
-                    <br className="hidden md:block" /> 
+                    단순한 이벤트를 넘어 <br className="md:hidden" /> {/* 모바일 전용 */}
+                    메시지가 전달되는 <br /> {/* 공통 (PC/모바일 모두 줄바꿈) */}
                     유의미한 현장을 만듭니다.
                   </>
                 ),
@@ -128,8 +126,9 @@ export default function WorkContent() {
                 title: "맞춤 설계",
                 desc: (
                   <>
-                    기성 프로그램이 아닌, <br />
-                    귀사만을 위한 독창적인 콘텐츠를 개발합니다.
+                    기성 프로그램이 아닌, <br /> {/* 공통 */}
+                    귀사만을 위한 <br className="md:hidden" /> {/* 모바일 전용 */}
+                    독창적인 콘텐츠를 개발합니다.
                   </>
                 ),
                 items: ["대상 특성 맞춤형 분석", "독자적 교육 콘텐츠 개발", "전문 운영 시나리오 설계"],
@@ -142,7 +141,7 @@ export default function WorkContent() {
                   </div>
                   <h3 className="text-xl font-bold text-[#0A1128] mb-4">{service.title}</h3>
                   
-                  {/* desc가 JSX 형태이므로 그대로 렌더링합니다 */}
+                  {/* desc가 JSX 객체이므로 whitespace-pre-line은 제거해도 됩니다. */}
                   <p className="text-gray-500 text-sm leading-relaxed mb-8">
                     {service.desc}
                   </p>
