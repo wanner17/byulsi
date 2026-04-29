@@ -1,8 +1,28 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate, animate, useInView } from "framer-motion";
-import { Phone, Mail, MessageCircle, Sparkles } from "lucide-react";
+import { Phone, Mail, MessageCircle, Sparkles, ArrowRight } from "lucide-react";
+
+const FadeInUp = ({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ duration: 0.7, delay, ease: "easeOut" }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
 
 const AnimatedNumber = ({ value }: { value: number }) => {
   const ref = useRef<HTMLSpanElement>(null);
@@ -161,6 +181,25 @@ export default function ContactContent() {
           </motion.div>
         </div>
       </div>
+
+      {/* ── CTA SECTION ── */}
+      <section className="py-20 px-6 bg-white">
+        <FadeInUp className="max-w-4xl mx-auto bg-[#F4F4F7] rounded-[3rem] p-12 text-center shadow-inner">
+          <h3 className="text-2xl md:text-3xl font-bold text-[#0A1128] mb-6">
+            귀사의 가치 있는 시간을 위해
+            <br />
+            전문적인 파트너가 
+            <br className="md:hidden" /> {/* 모바일에서만 줄바꿈 실행 */}
+            되어드리겠습니다.
+          </h3>
+          <button
+            onClick={() => window.open("http://pf.kakao.com/_GxhGjX/chat", "_blank")}
+            className="inline-flex items-center gap-2 bg-[#0A1128] text-white px-10 py-4 rounded-full hover:bg-[#1a2a5e] transition-all transform hover:scale-105 shadow-xl font-medium tracking-tight"
+          >
+            상담 문의하기 <ArrowRight size={18} />
+          </button>
+        </FadeInUp>
+      </section>
 
     </div>
   );

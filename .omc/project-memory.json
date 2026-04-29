@@ -112,6 +112,12 @@
   },
   "hotPaths": [
     {
+      "path": "app\\contact\\ContactContent.tsx",
+      "accessCount": 6,
+      "lastAccessed": 1777440128339,
+      "type": "file"
+    },
+    {
       "path": "app\\HomeContent.tsx",
       "accessCount": 4,
       "lastAccessed": 1777432429933,
@@ -136,9 +142,9 @@
       "type": "file"
     },
     {
-      "path": "app\\contact\\ContactContent.tsx",
+      "path": "app\\work\\WorkContent.tsx",
       "accessCount": 2,
-      "lastAccessed": 1777432619544,
+      "lastAccessed": 1777440109916,
       "type": "file"
     },
     {

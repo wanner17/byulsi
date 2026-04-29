@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Target, Settings, Zap, ChevronDown } from "lucide-react";
+import { CheckCircle2, Target, Settings, Zap, ChevronDown } from "lucide-react";
 import React from "react";
 
 /**
@@ -101,19 +101,19 @@ export default function WorkContent() {
               {
                 icon: <Target className="w-8 h-8" />,
                 title: "교육 프로그램",
-                desc: "대상자의 니즈와 교육 목적을 분석하여 몰입도 높은 프로그램을 기획합니다.",
+                desc: "대상자의 니즈와 교육 목적을 분석하여\n몰입도 높은 프로그램을 기획합니다.", // '분석하여' 뒤에 \n 추가
                 items: ["기업 교육 및 핵심가치 연수", "진로 탐색 및 체험형 교육", "팀빌딩 및 활동형 프로그램"],
               },
               {
                 icon: <Zap className="w-8 h-8" />,
                 title: "행사 기획·주관",
-                desc: "단순한 이벤트를 넘어 메시지가 전달되는 유의미한 현장을 만듭니다.",
+                desc: "단순한 이벤트를 넘어 메시지가 전달되는\n유의미한 현장을 만듭니다.", // '전달되는' 뒤에 \n 추가
                 items: ["기업/공공기관 공식 행사", "학교 축제 및 교내 행사", "성과 공유 및 컨퍼런스"],
               },
               {
                 icon: <Settings className="w-8 h-8" />,
                 title: "맞춤 설계",
-                desc: "기성 프로그램이 아닌, 귀사만을 위한 독창적인 콘텐츠를 개발합니다.",
+                desc: "기성 프로그램이 아닌,\n귀사만을 위한 독창적인 콘텐츠를 개발합니다.", // '아닌,' 뒤에 \n 추가
                 items: ["대상 특성 맞춤형 분석", "독자적 교육 콘텐츠 개발", "전문 운영 시나리오 설계"],
               },
             ].map((service, idx) => (
@@ -123,7 +123,12 @@ export default function WorkContent() {
                     {service.icon}
                   </div>
                   <h3 className="text-xl font-bold text-[#0A1128] mb-4">{service.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-8">{service.desc}</p>
+                  
+                  {/* whitespace-pre-line 클래스가 \n을 실제 줄바꿈으로 변환합니다 */}
+                  <p className="text-gray-500 text-sm leading-relaxed mb-8 whitespace-pre-line">
+                    {service.desc}
+                  </p>
+                  
                   <ul className="space-y-3">
                     {service.items.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
@@ -235,21 +240,6 @@ export default function WorkContent() {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* ── CTA SECTION ── */}
-      <section className="py-20 px-6 bg-white">
-        <FadeInUp className="max-w-4xl mx-auto bg-[#F4F4F7] rounded-[3rem] p-12 text-center shadow-inner">
-          <h3 className="text-2xl md:text-3xl font-bold text-[#0A1128] mb-6">
-            귀사의 가치 있는 시간을 위해<br />전문적인 파트너가 되어드리겠습니다.
-          </h3>
-          <button 
-            onClick={() => window.open("http://pf.kakao.com/_GxhGjX/chat", "_blank")}
-            className="inline-flex items-center gap-2 bg-[#0A1128] text-white px-10 py-4 rounded-full hover:bg-[#1a2a5e] transition-all transform hover:scale-105 shadow-xl font-medium tracking-tight"
-          >
-            상담 문의하기 <ArrowRight size={18} />
-          </button>
-        </FadeInUp>
       </section>
 
     </div>

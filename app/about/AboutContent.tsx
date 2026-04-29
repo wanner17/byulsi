@@ -92,16 +92,19 @@ export default function AboutContent() {
               <div className="space-y-10 text-slate-300 text-lg md:text-xl leading-relaxed font-light">
                 
                 <p>
-                  같은 시간도 어떤 시선으로{" "} {/* PC에서 '시선으로' 뒤 띄어쓰기 강제 부여 */}
-                  <br className="md:hidden" /> 
-                  바라보느냐에 따라<br className="hidden md:block" /> 
+                  같은 시간도 어떤 시선으로{" "}
+                  <br className="md:hidden" /> {/* 모바일만 줄바꿈 */}
+                  바라보느냐에 따라{" "}
+                  <br className="hidden md:block" /> {/* PC는 여기서만 끊어서 2줄로 */}
+                  <br className="md:hidden" /> {/* 모바일은 요청하신 대로 여기서 줄바꿈 */}
                   전혀 다른 경험이 된다고 믿습니다.
                 </p>
                 
                 <p>
-                  기업, 학교, 공공기관 등 다양한 현장에서{" "} {/* PC에서 '현장에서' 뒤 띄어쓰기 강제 부여 */}
-                  <br className="md:hidden" />
-                  각 대상과 목적에 맞는<br className="md:hidden" />
+                  기업, 학교, 공공기관 등 다양한 현장에서{" "}
+                  <br className="md:block" /> {/* PC/모바일 공통 줄바꿈 (PC 2줄 구성을 위해) */}
+                  각 대상과 목적에 맞는{" "}
+                  <br className="md:hidden" /> {/* 모바일만 줄바꿈 */}
                   과정과 경험을 설계합니다.
                 </p>
                 
