@@ -1,0 +1,158 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1777432214869,
+  "projectRoot": "d:\\dev\\byulsi",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "tsconfig.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "next",
+        "version": "16.2.4",
+        "category": "fullstack"
+      },
+      {
+        "name": "react",
+        "version": "19.2.4",
+        "category": "frontend"
+      },
+      {
+        "name": "react-dom",
+        "version": "19.2.4",
+        "category": "frontend"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "npm run build",
+    "testCommand": null,
+    "lintCommand": "npm run lint",
+    "devCommand": "npm run dev",
+    "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start",
+      "lint": "eslint"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "app",
+      "public"
+    ],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "app": {
+      "path": "app",
+      "purpose": "Application code",
+      "fileCount": 5,
+      "lastAccessed": 1777432214816,
+      "keyFiles": [
+        "favicon.ico",
+        "globals.css",
+        "HomeContent.tsx",
+        "layout.tsx",
+        "page.tsx"
+      ]
+    },
+    "public": {
+      "path": "public",
+      "purpose": "Public files",
+      "fileCount": 10,
+      "lastAccessed": 1777432214817,
+      "keyFiles": [
+        "about-bg.png",
+        "file.svg",
+        "globe.svg",
+        "hero-bg.png",
+        "logo.png"
+      ]
+    },
+    "app\\components": {
+      "path": "app\\components",
+      "purpose": "UI components",
+      "fileCount": 2,
+      "lastAccessed": 1777432214834,
+      "keyFiles": [
+        "Nav.tsx",
+        "RightNav.tsx"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "app\\HomeContent.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1777432429933,
+      "type": "file"
+    },
+    {
+      "path": "app\\layout.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1777432615075,
+      "type": "file"
+    },
+    {
+      "path": "app\\components\\Nav.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1777432341193,
+      "type": "file"
+    },
+    {
+      "path": "app\\components\\RightNav.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1777432610617,
+      "type": "file"
+    },
+    {
+      "path": "app\\contact\\ContactContent.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1777432619544,
+      "type": "file"
+    },
+    {
+      "path": "app\\contact\\page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1777432334813,
+      "type": "file"
+    },
+    {
+      "path": "app\\components\\Footer.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1777432603896,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

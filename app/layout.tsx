@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/Nav";
 import RightNav from "./components/RightNav";
+import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"], weight: ["300", "400", "500", "700"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
         <Nav />
         <RightNav />
         {children}
+        <Footer />
       </body>
     </html>
   );

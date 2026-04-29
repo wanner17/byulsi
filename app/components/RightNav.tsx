@@ -8,7 +8,7 @@ const navItems = [
   { id: "hero", label: "Home", href: "/" },
   { id: "about", label: "About", href: "/about" },
   { id: "work", label: "Work", href: "/work" },
-  { id: "contact", label: "Get in Touch", href: "/#contact" },
+  { id: "contact", label: "Get in Touch", href: "/contact" },
 ];
 
 export default function RightNav() {

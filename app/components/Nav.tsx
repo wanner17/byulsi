@@ -10,7 +10,7 @@ const links = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Work", href: "/work" },
-  { label: "Get in Touch", href: "/#contact" },
+  { label: "Get in Touch", href: "/contact" },
 ];
 
 export default function Nav() {
