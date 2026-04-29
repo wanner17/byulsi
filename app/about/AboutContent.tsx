@@ -85,20 +85,20 @@ export default function AboutContent() {
             
             {/* 왼쪽: 텍스트 설명 영역 */}
             <FadeInUp className="md:w-1/2">
-              <h2 className="text-2xl md:text-4xl font-bold text-white mb-8 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 tracking-tight">
                 BYULSI, 별다섯시간은
               </h2>
-              <div className="space-y-6 text-slate-300 text-lg md:text-xl leading-relaxed font-light break-keep">
+              <div className="space-y-10 text-slate-300 text-lg md:text-xl leading-relaxed font-light break-keep">
                 <p>
-                  같은 시간도 어떤 시선으로 바라보느냐에 따라<br className="hidden md:block" />
+                  같은 시간도 어떤 시선으로 바라보느냐에 따라<br />
                   전혀 다른 경험이 된다고 믿습니다.
                 </p>
                 <p>
-                  기업, 학교, 공공기관 등 다양한 현장에서<br className="hidden md:block" />
+                  기업, 학교, 공공기관 등 다양한 현장에서<br />
                   각 대상과 목적에 맞는 과정과 경험을 설계합니다.
                 </p>
                 
-                {/* 문구 강조 부분 수정 */}
+                {/* 하단 강조 문구: 이미지와 동일하게 줄바꿈 처리 */}
                 <div className="pt-6">
                   <motion.p 
                     className="text-white text-xl md:text-2xl font-medium leading-snug border-l-4 border-[#C9A84C] pl-6"
@@ -106,10 +106,8 @@ export default function AboutContent() {
                     viewport={{ once: true }}
                     transition={{ duration: 1, delay: 0.5 }}
                   >
-                    세로로 회전하면 <br className="md:hidden" />
-                    <span className="text-[#F4D03F] font-bold text-shadow-glow">물음표의 형태</span>가 되어<br />
-                    <span className="text-[#F4D03F]">끊임없는 질문</span>과 <br className="md:hidden" />
-                    <span className="text-[#F4D03F]">새로운 가능성</span>을 상징합니다.
+                    세로로 회전하면 <span className="text-[#F4D03F] font-bold text-shadow-glow">물음표의 형태</span>가 되어<br />
+                    <span className="text-[#F4D03F]">끊임없는 질문</span>과 <span className="text-[#F4D03F]">새로운 가능성</span>을 상징합니다.
                   </motion.p>
                 </div>
               </div>
