@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="scroll-smooth">
-      <body className={`${inter.className} bg-[#0A1128] text-slate-200 antialiased`}>
+      <body className={`${inter.className} bg-[#0A1128] text-slate-200 antialiased overflow-x-hidden`}>
         <Nav />
         <RightNav />
         {children}

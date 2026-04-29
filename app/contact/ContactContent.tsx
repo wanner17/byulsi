@@ -95,7 +95,7 @@ export default function ContactContent() {
       </div>
 
       <div className="flex-grow flex items-center justify-center px-6 md:px-8 py-10 relative z-10">
-        <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+        <div className="max-w-4xl w-full flex flex-col md:grid md:grid-cols-2 gap-12 md:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -133,11 +133,11 @@ export default function ContactContent() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="h-full"
+            className="md:h-full"
           >
             <div
               onMouseMove={handleCardMouseMove}
-              className="group relative overflow-hidden bg-gradient-to-br from-[#0A1128] to-[#1E2E5C] p-8 md:p-10 rounded-3xl text-white flex flex-col justify-center shadow-2xl border border-white/10 h-full"
+              className="group relative overflow-hidden bg-gradient-to-br from-[#0A1128] to-[#1E2E5C] p-8 md:p-10 rounded-3xl text-white flex flex-col justify-center shadow-2xl border border-white/10 md:h-full"
             >
               <motion.div
                 className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-500 group-hover:opacity-100 z-20"

@@ -113,8 +113,14 @@
   "hotPaths": [
     {
       "path": "app\\contact\\ContactContent.tsx",
-      "accessCount": 6,
-      "lastAccessed": 1777440128339,
+      "accessCount": 12,
+      "lastAccessed": 1777440675558,
+      "type": "file"
+    },
+    {
+      "path": "app\\layout.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1777440645439,
       "type": "file"
     },
     {
@@ -124,21 +130,15 @@
       "type": "file"
     },
     {
-      "path": "app\\layout.tsx",
+      "path": "app\\components\\RightNav.tsx",
       "accessCount": 3,
-      "lastAccessed": 1777432615075,
+      "lastAccessed": 1777440584074,
       "type": "file"
     },
     {
       "path": "app\\components\\Nav.tsx",
       "accessCount": 2,
       "lastAccessed": 1777432341193,
-      "type": "file"
-    },
-    {
-      "path": "app\\components\\RightNav.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1777432610617,
       "type": "file"
     },
     {
@@ -149,14 +149,20 @@
     },
     {
       "path": "app\\contact\\page.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1777432334813,
+      "accessCount": 2,
+      "lastAccessed": 1777440580752,
       "type": "file"
     },
     {
       "path": "app\\components\\Footer.tsx",
       "accessCount": 1,
       "lastAccessed": 1777432603896,
+      "type": "file"
+    },
+    {
+      "path": "app\\globals.css",
+      "accessCount": 1,
+      "lastAccessed": 1777440511268,
       "type": "file"
     }
   ],
