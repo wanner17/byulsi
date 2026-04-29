@@ -88,25 +88,28 @@ export default function AboutContent() {
               <h2 className="text-2xl md:text-4xl font-bold text-white mb-8 tracking-tight">
                 BYULSI, 별다섯시간은
               </h2>
-              <div className="space-y-6 text-slate-300 text-lg md:text-xl leading-relaxed font-light">
+              <div className="space-y-6 text-slate-300 text-lg md:text-xl leading-relaxed font-light break-keep">
                 <p>
-                  같은 시간도 어떤 시선으로 바라보느냐에 따라<br />
+                  같은 시간도 어떤 시선으로 바라보느냐에 따라<br className="hidden md:block" />
                   전혀 다른 경험이 된다고 믿습니다.
                 </p>
                 <p>
-                  기업, 학교, 공공기관 등 다양한 현장에서<br />
+                  기업, 학교, 공공기관 등 다양한 현장에서<br className="hidden md:block" />
                   각 대상과 목적에 맞는 과정과 경험을 설계합니다.
                 </p>
                 
-                {/* 문구 강조 부분 */}
+                {/* 문구 강조 부분 수정 */}
                 <div className="pt-6">
                   <motion.p 
                     className="text-white text-xl md:text-2xl font-medium leading-snug border-l-4 border-[#C9A84C] pl-6"
                     whileInView={{ opacity: [0, 1], x: [-20, 0] }}
+                    viewport={{ once: true }}
                     transition={{ duration: 1, delay: 0.5 }}
                   >
-                    세로로 회전하면 <span className="text-[#F4D03F] font-bold text-shadow-glow">물음표의 형태</span>가 되어<br />
-                    <span className="text-[#F4D03F]">끊임없는 질문</span>과 <span className="text-[#F4D03F]">새로운 가능성</span>을 상징합니다.
+                    세로로 회전하면 <br className="md:hidden" />
+                    <span className="text-[#F4D03F] font-bold text-shadow-glow">물음표의 형태</span>가 되어<br />
+                    <span className="text-[#F4D03F]">끊임없는 질문</span>과 <br className="md:hidden" />
+                    <span className="text-[#F4D03F]">새로운 가능성</span>을 상징합니다.
                   </motion.p>
                 </div>
               </div>
@@ -214,22 +217,6 @@ export default function AboutContent() {
           </FadeInUp>
         </div>
       </section>
-
-      {/* ── FOOTER ── */}
-      <footer className="bg-[#060d1f] py-16 px-8 border-t border-white/5">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex items-center gap-6">
-            <img src="/logo.png" alt="BYULSI" className="w-12 h-12 object-contain grayscale opacity-50" />
-            <div className="text-left text-xs text-slate-500">
-              <p className="font-bold text-slate-300 text-sm mb-1 uppercase tracking-wider">BYULSI 별다섯시간</p>
-              <p>대표: 윤소하 | 이메일: byulsi@naver.com | 전화: 010-6868-9321</p>
-            </div>
-          </div>
-          <p className="text-slate-600 text-[10px] tracking-widest uppercase">
-            © 2024 BYULSI. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
