@@ -71,7 +71,7 @@ export default function ContactContent() {
   }, [mouseX, mouseY]);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFC] font-sans text-[#0A1128] flex flex-col justify-between pt-20 overflow-hidden">
+    <div className="relative min-h-screen bg-[#FAFAFC] font-sans text-[#0A1128] flex flex-col justify-between pt-20 overflow-hidden">
       {/* Background Decorative Blobs */}
       <motion.div
         style={{ x: moveX_sm, y: moveY_sm }}
