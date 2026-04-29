@@ -273,12 +273,12 @@ export default function HomeContent() {
       {/* ── SECTION 2: Philosophy (이미지 2번 스타일) ── */}
       <section 
         id="vision" 
-        className="relative min-h-screen flex items-center justify-center px-8 overflow-hidden"
+        className="relative min-h-screen flex items-center justify-center px-8 overflow-hidden bg-[#0A1128]"
       >
         {/* Subtle Starry Background Pattern */}
         <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at center, #ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         
-        {/* Large Watermark Text (빈 공간을 웅장하게 채움) */}
+        {/* Large Watermark Text */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden z-0">
           <motion.span 
             animate={{ x: ["0%", "-50%"] }}
@@ -293,6 +293,7 @@ export default function HomeContent() {
         </div>
 
         <FadeInUp className="text-center space-y-12">
+          {/* 메인 슬로건: 물 위에 비친 별 */}
           <div className="space-y-6 relative z-10">
             <Sparkles className="w-8 h-8 text-[#C9A84C] mx-auto opacity-80 mb-6" />
             <p className="text-xl md:text-3xl text-slate-300 font-light leading-relaxed">
@@ -301,13 +302,17 @@ export default function HomeContent() {
             </p>
           </div>
 
-          <div className="space-y-4 relative z-10">
-            <p className="text-lg md:text-xl text-slate-400 font-light">
-              우리는 그렇게 <span className="text-white font-normal">새로운 시각</span>으로 세상을 바라봅니다
+          {/* 서브 문구: 시각의 변화 (요청하신 줄바꿈 및 문구 수정) */}
+          <div className="space-y-8 relative z-10">
+            <p className="text-lg md:text-xl text-slate-400 font-light leading-relaxed">
+              물 위에 비친 별의 빛처럼,<br className="md:hidden" /> 
+              우리는 <span className="text-white font-normal">새로운 시각</span>으로 세상을 바라봅니다.
             </p>
-            <p className="text-lg md:text-xl text-slate-400 font-light tracking-wide">
-              같은 시간도 다르게 바라보며<br />
-              더 나은 가치를 만듭니다.
+            
+            <p className="text-lg md:text-xl text-slate-400 font-light tracking-wide leading-relaxed">
+              작은 시선의 변화로,<br />
+              같은 시간도 다르게 바라보고,<br className="md:hidden" />
+              <span className="text-white font-normal">더 나은 가치</span>를 만듭니다.
             </p>
           </div>
 

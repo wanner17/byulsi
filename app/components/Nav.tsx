@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
 
 const links = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Work", href: "/work" },
   { label: "Get in Touch", href: "/#contact" },
