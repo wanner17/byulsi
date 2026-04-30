@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Star, Phone, Mail, MessageCircle, ChevronDown } from "lucide-react";
 
 /**
@@ -33,6 +33,45 @@ const FadeInUp = ({
     {children}
   </motion.div>
 );
+
+type Token = string | React.ReactNode;
+
+/**
+ * 애플 스타일의 스크롤 텍스트 리빌 컴포넌트
+ */
+const ScrollRevealText = ({ tokens }: { tokens: Token[] }) => {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 85%", "center 45%"],
+  });
+
+  const wordCount = tokens.filter((t) => typeof t === "string").length;
+  let wordIndex = 0;
+
+  return (
+    <p ref={ref} className="text-2xl md:text-4xl font-bold leading-tight md:leading-snug break-keep">
+      {tokens.map((token, i) => {
+        if (typeof token === "string") {
+          const start = wordIndex / wordCount;
+          const end = start + 1 / wordCount;
+          wordIndex++;
+
+          const opacity = useTransform(scrollYProgress, [start, end], [0.15, 1]);
+          const color = useTransform(scrollYProgress, [start, end], ["#475569", "#FFFFFF"]);
+
+          return (
+            <motion.span key={i} style={{ opacity, color }} className="inline-block mr-[0.25em]">
+              {token}
+            </motion.span>
+          );
+        } else {
+          return <React.Fragment key={i}>{token}</React.Fragment>;
+        }
+      })}
+    </p>
+  );
+};
 
 export default function AboutContent() {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -89,24 +128,28 @@ export default function AboutContent() {
                 BYULSI, 별다섯시간은
               </h2>
               
-              <div className="space-y-10 text-slate-300 text-lg md:text-xl leading-relaxed font-light">
+              <div className="space-y-12 md:space-y-16 text-slate-300">
                 
-                <p>
-                  같은 시간도 어떤 시선으로{" "}
-                  <br className="md:hidden" /> {/* 모바일만 줄바꿈 */}
-                  바라보느냐에 따라{" "}
-                  <br className="hidden md:block" /> {/* PC는 여기서만 끊어서 2줄로 */}
-                  <br className="md:hidden" /> {/* 모바일은 요청하신 대로 여기서 줄바꿈 */}
-                  전혀 다른 경험이 된다고 믿습니다.
-                </p>
+                <ScrollRevealText 
+                  tokens={[
+                    "같은", "시간도", "어떤", "시선으로",
+                    <br key="br1" className="md:hidden" />,
+                    "바라보느냐에", "따라",
+                    <br key="br2" className="hidden md:block" />,
+                    <br key="br3" className="md:hidden" />,
+                    "전혀", "다른", "경험이", "된다고", "믿습니다."
+                  ]}
+                />
                 
-                <p>
-                  기업, 학교, 공공기관 등 다양한 현장에서{" "}
-                  <br className="md:block" /> {/* PC/모바일 공통 줄바꿈 (PC 2줄 구성을 위해) */}
-                  각 대상과 목적에 맞는{" "}
-                  <br className="md:hidden" /> {/* 모바일만 줄바꿈 */}
-                  과정과 경험을 설계합니다.
-                </p>
+                <ScrollRevealText 
+                  tokens={[
+                    "기업,", "학교,", "공공기관", "등", "다양한", "현장에서",
+                    <br key="br4" className="md:block" />,
+                    "각", "대상과", "목적에", "맞는",
+                    <br key="br5" className="md:hidden" />,
+                    "과정과", "경험을", "설계합니다."
+                  ]}
+                />
                 
                 <div className="pt-6">
                   <motion.p 

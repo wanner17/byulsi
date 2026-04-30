@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { CheckCircle2, Target, Settings, Zap, ChevronDown, MessageCircle } from "lucide-react";
-import React, { useRef } from "react";
+import { CheckCircle2, Target, Settings, Zap, ChevronDown, MessageCircle, Star } from "lucide-react";
+import React, { useRef, useEffect } from "react";
 import StarryBackground from "./StarryBackground";
 
 /**
@@ -72,6 +72,26 @@ const ServiceCard = ({ service, delay, idx }: { service: ServiceData; delay: num
 
   const rotateX = useTransform(ySpring, [-0.5, 0.5], ["10deg", "-10deg"]);
   const rotateY = useTransform(xSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  useEffect(() => {
+    // 스마트폰 기울기(자이로스코프) 센서 감지
+    const handleOrientation = (e: DeviceOrientationEvent) => {
+      // gamma: 좌우 기울기 (-90 ~ 90)
+      // beta: 앞뒤 기울기 (-180 ~ 180)
+      if (e.gamma !== null && e.beta !== null) {
+        // 마우스 호버와 비슷하게 작동하도록 값을 -0.5 ~ 0.5 사이로 정규화합니다.
+        const normalizedX = Math.max(-0.5, Math.min(0.5, e.gamma / 45));
+        // 사용자가 스마트폰을 대략 45도 각도로 들고 있다고 가정하고 보정합니다.
+        const normalizedY = Math.max(-0.5, Math.min(0.5, (e.beta - 45) / 45));
+        
+        x.set(normalizedX);
+        y.set(normalizedY);
+      }
+    };
+
+    window.addEventListener("deviceorientation", handleOrientation);
+    return () => window.removeEventListener("deviceorientation", handleOrientation);
+  }, [x, y]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
@@ -281,6 +301,31 @@ export default function WorkContent() {
           </span>
           <ChevronDown className="text-[#C9A84C]/40 w-5 h-5 group-hover:text-[#C9A84C]" />
         </motion.button>
+      </section>
+
+      {/* ── SECTION 2.5: INFINITE MARQUEE ── */}
+      <section className="py-12 bg-white border-y border-gray-100 overflow-hidden">
+        <motion.div
+          className="flex whitespace-nowrap"
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{
+            ease: 'linear',
+            duration: 40,
+            repeat: Infinity,
+          }}
+        >
+          {/* 콘텐츠를 두 번 렌더링하여 무한 루프 효과를 만듭니다. */}
+          {[...Array(2)].map((_, i) => (
+            <div key={i} className="flex-shrink-0 flex items-center">
+              {["EDUCATION", "EVENT", "PLANNING", "CONSULTING", "TEAM-BUILDING", "BRANDING"].map((text) => (
+                <React.Fragment key={text + i}>
+                  <p className="mx-8 text-2xl font-bold tracking-tight text-gray-800">{text}</p>
+                  <Star className="w-5 h-5 text-[#C9A84C] fill-current" />
+                </React.Fragment>
+              ))}
+            </div>
+          ))}
+        </motion.div>
       </section>
 
       {/* ── SECTION 3: WHY US (STRENGTH) ── */}
