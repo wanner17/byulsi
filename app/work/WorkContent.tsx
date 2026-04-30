@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { CheckCircle2, Target, Settings, Zap, ChevronDown } from "lucide-react";
 import React from "react";
+import StarryBackground from "./StarryBackground";
 
 /**
  * 특정 섹션으로 부드럽게 스크롤하는 함수
@@ -57,8 +58,9 @@ export default function WorkContent() {
       {/* ── HERO BANNER ── */}
       <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/hero-bg.png" alt="" className="w-full h-full object-cover" />
+          <img src="/about-bg.png" alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A1128]/90 to-[#0A1128]/70" />
+          <StarryBackground />
         </div>
         <div className="relative z-10 text-center px-4">
           <motion.p 
@@ -176,7 +178,18 @@ export default function WorkContent() {
 
       {/* ── SECTION 2: PROCESS ── */}
       <section id="process" className="py-24 px-6 bg-[#0A1128] relative overflow-hidden min-h-screen flex flex-col justify-center">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+        {/* Aceternity 스타일의 Aurora / 오로라 배경 효과 */}
+        <motion.div
+          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[-10%] right-[-5%] w-[40rem] h-[40rem] bg-[#C9A84C]/10 rounded-full blur-[100px] pointer-events-none"
+        />
+        <motion.div
+          animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.5, 0.2] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-[-10%] left-[-10%] w-[30rem] h-[30rem] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"
+        />
+
         <div className="max-w-6xl mx-auto relative z-10 w-full">
           <SectionTitle subtitle="Process" title="업무 프로세스" dark />
           
