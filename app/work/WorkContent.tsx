@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { CheckCircle2, Target, Settings, Zap, ChevronDown } from "lucide-react";
-import React from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { CheckCircle2, Target, Settings, Zap, ChevronDown, MessageCircle } from "lucide-react";
+import React, { useRef } from "react";
 import StarryBackground from "./StarryBackground";
 
 /**
@@ -19,10 +19,12 @@ const FadeInUp = ({
   children,
   delay = 0,
   className = "",
+  style = {},
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
+  style?: React.CSSProperties;
 }) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
@@ -30,6 +32,7 @@ const FadeInUp = ({
     viewport={{ once: true, margin: "-100px" }}
     transition={{ duration: 0.7, delay, ease: "easeOut" }}
     className={className}
+    style={style}
   >
     {children}
   </motion.div>
@@ -51,9 +54,72 @@ const SectionTitle = ({ subtitle, title, dark = false }: { subtitle: string; tit
   </div>
 );
 
-export default function WorkContent() {
+const ServiceCard = ({ service, delay, idx }: { service: any; delay: number; idx: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const xSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const ySpring = useSpring(y, { stiffness: 300, damping: 30 });
+
+  const rotateX = useTransform(ySpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(xSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
-    <div className="bg-white font-sans overflow-x-hidden">
+    // 모바일에서 카드가 순서대로 겹쳐 쌓이도록 top과 zIndex를 동적으로 부여합니다.
+    <FadeInUp
+      delay={delay} 
+      className="group sticky md:static" 
+      style={{ 
+        top: `calc(15vh + ${idx * 20}px)`, 
+        zIndex: 10 + idx, 
+        perspective: 1000 
+      }}
+    >
+      <motion.div
+        ref={ref}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="h-full bg-white border border-gray-100 rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] transition-shadow duration-300 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
+      >
+        <div style={{ transform: "translateZ(40px)" }} className="p-10 transform-gpu">
+          <div className="w-16 h-16 bg-[#F9F7F2] rounded-2xl flex items-center justify-center text-[#C9A84C] mb-8 group-hover:bg-[#0A1128] group-hover:text-white transition-colors duration-500">
+            {service.icon}
+          </div>
+          <h3 className="text-xl font-bold text-[#0A1128] mb-4">{service.title}</h3>
+          <p className="text-gray-500 text-sm leading-relaxed mb-8">{service.desc}</p>
+          <ul className="space-y-3">
+            {service.items.map((item, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                <CheckCircle2 className="w-4 h-4 text-[#C9A84C] mt-0.5 flex-shrink-0" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+    </FadeInUp>
+  );
+};
+
+export default function WorkContent() {
+  // position: sticky가 정상 작동하도록 overflow-x-hidden을 overflow-x-clip으로 변경합니다.
+  return (
+    <div className="bg-white font-sans overflow-x-clip">
       
       {/* ── HERO BANNER ── */}
       <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -98,7 +164,8 @@ export default function WorkContent() {
         <div className="max-w-6xl mx-auto">
           <SectionTitle subtitle="Services" title="제공 서비스" />
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* 모바일: 스크롤 카드 스태킹 (Sticky) / PC: 기존 그리드 유지 */}
+          <div className="flex flex-col md:grid md:grid-cols-3 gap-[15vh] md:gap-8 pb-[20vh] md:pb-0">
             {[
               {
                 icon: <Target className="w-8 h-8" />,
@@ -136,28 +203,7 @@ export default function WorkContent() {
                 items: ["대상 특성 맞춤형 분석", "독자적 교육 콘텐츠 개발", "전문 운영 시나리오 설계"],
               },
             ].map((service, idx) => (
-              <FadeInUp key={idx} delay={idx * 0.1} className="group">
-                <div className="h-full p-10 bg-white border border-gray-100 rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-2">
-                  <div className="w-16 h-16 bg-[#F9F7F2] rounded-2xl flex items-center justify-center text-[#C9A84C] mb-8 group-hover:bg-[#0A1128] group-hover:text-white transition-colors duration-500">
-                    {service.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-[#0A1128] mb-4">{service.title}</h3>
-                  
-                  {/* desc가 JSX 객체이므로 whitespace-pre-line은 제거해도 됩니다. */}
-                  <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                    {service.desc}
-                  </p>
-                  
-                  <ul className="space-y-3">
-                    {service.items.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                        <CheckCircle2 className="w-4 h-4 text-[#C9A84C] mt-0.5 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </FadeInUp>
+              <ServiceCard key={idx} service={service} delay={idx * 0.1} idx={idx} />
             ))}
           </div>
         </div>
@@ -193,14 +239,15 @@ export default function WorkContent() {
         <div className="max-w-6xl mx-auto relative z-10 w-full">
           <SectionTitle subtitle="Process" title="업무 프로세스" dark />
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* 모바일: 가로 스크롤 스냅 (스와이프) / PC: 기존 그리드 유지 */}
+          <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory sm:snap-none pb-8 sm:pb-0 -mx-6 px-6 sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
             {[
               { num: "01", title: "기획", desc: "목적과 방향성을\n정교하게 설정합니다." },
               { num: "02", title: "구성", desc: "콘텐츠의 흐름과\n내용을 구체화합니다." },
               { num: "03", title: "진행", desc: "현장에서 안정적이고\n전문적으로 운영합니다." },
               { num: "04", title: "결과", desc: "의미 있는 성과와\n데이터로 보답합니다." },
             ].map((step, idx) => (
-              <FadeInUp key={idx} delay={idx * 0.1}>
+              <FadeInUp key={idx} delay={idx * 0.1} className="w-[85vw] max-w-[300px] sm:w-auto sm:max-w-none flex-shrink-0 snap-center">
                 <div className="relative p-8 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm hover:bg-white/10 transition-colors h-full">
                   <span className="text-4xl font-black text-white/10 absolute top-4 right-6 transition-colors">
                     {step.num}
@@ -271,6 +318,25 @@ export default function WorkContent() {
           </div>
         </div>
       </section>
+
+      {/* ── MOBILE FAB (KakaoTalk Floating Button) ── */}
+      <motion.button
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 400, damping: 17, delay: 1 }}
+        onClick={() => {
+          // 모바일 기기에서 터치 시 기분 좋은 햅틱(진동) 피드백 발생 (지원하는 기기에 한함)
+          if (typeof navigator !== "undefined" && navigator.vibrate) {
+            navigator.vibrate([30, 50, 30]);
+          }
+          window.open("http://pf.kakao.com/_GxhGjX/chat", "_blank");
+        }}
+        className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[100] w-14 h-14 md:w-16 md:h-16 bg-[#FEE500] rounded-full flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.3)] border border-black/5"
+      >
+        <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-[#371D1E] fill-current" />
+      </motion.button>
 
     </div>
   );
