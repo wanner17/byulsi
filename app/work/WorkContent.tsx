@@ -54,7 +54,14 @@ const SectionTitle = ({ subtitle, title, dark = false }: { subtitle: string; tit
   </div>
 );
 
-const ServiceCard = ({ service, delay, idx }: { service: any; delay: number; idx: number }) => {
+interface ServiceData {
+  icon: React.ReactNode;
+  title: string;
+  desc: React.ReactNode;
+  items: string[];
+}
+
+const ServiceCard = ({ service, delay, idx }: { service: ServiceData; delay: number; idx: number }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
