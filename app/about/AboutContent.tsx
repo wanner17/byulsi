@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useState, useRef, useMemo, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
 import { ArrowRight, Star, Phone, Mail, MessageCircle, ChevronDown } from "lucide-react";
 
 /**
@@ -99,8 +99,68 @@ const WaterReflectionSVG = () => (
   </svg>
 );
 
+const StarParticles = ({ isActive }: { isActive: boolean }) => {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, i) => ({
+        id: i,
+        x: (((i % 6) - 2.5) / 2.5) * 38,
+        delay: (i * 0.09) % 0.6,
+        dur: 0.65 + (i % 3) * 0.18,
+      })),
+    []
+  );
+  return (
+    <>
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute w-[3px] h-[3px] rounded-full bg-[#C9A84C] pointer-events-none"
+          style={{ left: "50%", top: "50%", marginLeft: -1.5, marginTop: -1.5 }}
+          animate={
+            isActive
+              ? { x: [0, p.x], y: [0, 62 + Math.abs(p.x) * 0.4], opacity: [0, 1, 0], scale: [0.5, 1.3, 0.2] }
+              : { opacity: 0, x: 0, y: 0, scale: 0.5 }
+          }
+          transition={{
+            duration: p.dur,
+            delay: p.delay,
+            repeat: isActive ? Infinity : 0,
+            repeatDelay: 1.4,
+            ease: "easeOut",
+          }}
+        />
+      ))}
+    </>
+  );
+};
+
+const RippleRings = ({ isActive }: { isActive: boolean }) => (
+  <>
+    {[0, 1.1].map((delay, i) => (
+      <motion.div
+        key={i}
+        className="absolute inset-[-8px] rounded-full border border-[#C9A84C] pointer-events-none"
+        animate={isActive ? { scale: [1, 1.9], opacity: [0.5, 0] } : { scale: 1, opacity: 0 }}
+        transition={{ duration: 2.4, delay, repeat: isActive ? Infinity : 0, repeatDelay: 0.6, ease: "easeOut" }}
+      />
+    ))}
+  </>
+);
+
 export default function AboutContent() {
   const [isRevealed, setIsRevealed] = useState(false);
+  const logoConcRef = useRef<HTMLElement>(null);
+  const [logoActiveIndex, setLogoActiveIndex] = useState(-1);
+  const isLogoInView = useInView(logoConcRef, { once: true, margin: "-80px 0px" });
+
+  useEffect(() => {
+    if (!isLogoInView) return;
+    const timers = [300, 900, 1500, 2100].map((delay, i) =>
+      setTimeout(() => setLogoActiveIndex(i), delay)
+    );
+    return () => timers.forEach(clearTimeout);
+  }, [isLogoInView]);
 
   return (
     <div className="w-full overflow-x-hidden font-sans bg-[#0A1128] text-white">
@@ -254,7 +314,7 @@ export default function AboutContent() {
       </section>
 
       {/* ── SECTION 3: Logo Concept ── */}
-      <section className="relative bg-[#0A1128] py-28 px-8 overflow-hidden border-t border-white/5">
+      <section ref={logoConcRef} className="relative bg-[#0A1128] py-28 px-8 overflow-hidden border-t border-white/5">
         <div
           className="absolute inset-0 opacity-[0.08] pointer-events-none"
           style={{
@@ -295,7 +355,7 @@ export default function AboutContent() {
                   <img
                     src="/logo_vertical.png"
                     alt="BYULSI Question"
-                    className="w-14 h-14 object-contain drop-shadow-[0_0_14px_rgba(244,208,63,0.5)]"
+                    className="w-14 h-14 object-contain"
                   />
                 ),
                 label: "끊임없는 물음표",
@@ -303,6 +363,7 @@ export default function AboutContent() {
               },
             ].map((item, i) => {
               const connectors = ["+", "=", "→"];
+              const isItemActive = logoActiveIndex >= i;
               return (
                 <div key={i} className="flex flex-col md:flex-row items-center gap-10 md:gap-4">
                   <motion.div
@@ -312,20 +373,63 @@ export default function AboutContent() {
                     transition={{ delay: i * 0.2, duration: 0.7, ease: "easeOut" }}
                     className="flex flex-col items-center gap-3"
                   >
-                    <div className="w-20 h-20 flex items-center justify-center">{item.visual}</div>
+                    <motion.div
+                      className="w-20 h-20 flex items-center justify-center relative"
+                      animate={
+                        isItemActive
+                          ? { filter: "drop-shadow(0 0 16px rgba(201,168,76,0.9))" }
+                          : { filter: "drop-shadow(0 0 0px rgba(201,168,76,0))" }
+                      }
+                      transition={{ duration: 0.8 }}
+                    >
+                      <motion.div
+                        className="w-full h-full flex items-center justify-center"
+                        animate={isItemActive ? { opacity: 1, scale: 1 } : { opacity: 0.22, scale: 0.88 }}
+                        transition={{ duration: 0.7 }}
+                      >
+                        {item.visual}
+                      </motion.div>
+                      {i === 0 && <StarParticles isActive={isItemActive} />}
+                      {i === 1 && <RippleRings isActive={isItemActive} />}
+                    </motion.div>
+
                     <div className="text-center">
-                      <p className="text-white text-sm font-medium tracking-wide">{item.label}</p>
-                      <p className="text-slate-500 text-xs mt-1">{item.sub}</p>
+                      <motion.p
+                        className="text-sm font-medium tracking-wide"
+                        animate={{ color: isItemActive ? "#FFFFFF" : "#475569" }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        {item.label}
+                      </motion.p>
+                      <motion.p
+                        className="text-xs mt-1"
+                        animate={{ color: isItemActive ? "#C9A84C" : "#1E293B" }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        {item.sub}
+                      </motion.p>
                     </div>
                   </motion.div>
 
                   {i < connectors.length && (
                     <motion.span
-                      initial={{ opacity: 0, scale: 0.3 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.2 + 0.12, duration: 0.4 }}
-                      className="text-[#C9A84C] text-2xl font-light select-none rotate-90 md:rotate-0"
+                      animate={
+                        logoActiveIndex >= i + 1
+                          ? {
+                              opacity: 1,
+                              color: "#C9A84C",
+                              textShadow: "0 0 14px rgba(201,168,76,0.95)",
+                              scale: 1.3,
+                            }
+                          : {
+                              opacity: 0.15,
+                              color: "#334155",
+                              textShadow: "0 0 0px transparent",
+                              scale: 1,
+                            }
+                      }
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      className="text-2xl font-light select-none rotate-90 md:rotate-0"
                     >
                       {connectors[i]}
                     </motion.span>
