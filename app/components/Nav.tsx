@@ -33,8 +33,8 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-4 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-        <Link href="/" className="flex items-center relative z-[110]" onClick={handleLinkClick}>
+      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-center md:justify-between px-8 md:px-16 py-4 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+        <Link href="/" className="flex items-center z-[110]" onClick={handleLinkClick}>
           <img src="/logo.png" alt="BYULSI" className="w-20 h-12 object-contain" />
           <div className="flex flex-col">
             <span className="text-[#0A1128] font-bold tracking-[0.25em] text-base md:text-lg leading-tight">
@@ -47,7 +47,7 @@ export default function Nav() {
         </Link>
 
         <button
-          className="text-[#0A1128] relative z-[110]"
+          className="absolute right-8 md:static md:right-auto text-[#0A1128] z-[110]"
           onClick={toggleMenu}
         >
           {menuOpen ? <X size={28} /> : <Menu size={28} />}

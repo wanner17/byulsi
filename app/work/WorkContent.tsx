@@ -3,7 +3,6 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { CheckCircle2, Target, Settings, Zap, ChevronDown, MessageCircle, Star, ArrowRight } from "lucide-react";
 import React, { useRef, useEffect } from "react";
-import StarryBackground from "./StarryBackground";
 
 /**
  * 특정 섹션으로 부드럽게 스크롤하는 함수
@@ -150,24 +149,20 @@ export default function WorkContent() {
         <div className="absolute inset-0">
           <img src="/about-bg.png" alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A1128]/90 to-[#0A1128]/70" />
-          <StarryBackground />
         </div>
-        <div className="relative z-10 text-center px-4">
-          <motion.p 
-            initial={{ opacity: 0, letterSpacing: "0.1em" }}
-            animate={{ opacity: 1, letterSpacing: "0.4em" }}
-            className="text-[#C9A84C] text-sm md:text-base font-light mb-4 uppercase"
-          >
-            Our Professional Services
-          </motion.p>
+        <FadeInUp className="relative z-10 text-center px-4">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-bold text-white tracking-tighter"
+            transition={{ duration: 0.8 }}
+            className="inline-block text-white text-4xl md:text-6xl font-bold mb-6 tracking-tighter"
           >
             What We Do
           </motion.h1>
-        </div>
+          <p className="text-[#C9A84C] tracking-[0.4em] text-sm md:text-base uppercase font-light">
+            Our Professional Services
+          </p>
+        </FadeInUp>
 
         {/* 1번 섹션 -> 2번 섹션 버튼 */}
         <motion.button

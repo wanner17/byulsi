@@ -57,6 +57,48 @@ const ScrollRevealText = ({ tokens }: { tokens: Token[] }) => {
   );
 };
 
+const FourPointStar = ({ size = 72 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 80 80" fill="none">
+    <defs>
+      <filter id="star-glow-about" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="4" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+    <path
+      d="M40 4 L46 34 L76 40 L46 46 L40 76 L34 46 L4 40 L34 34 Z"
+      fill="#C9A84C"
+      filter="url(#star-glow-about)"
+    />
+  </svg>
+);
+
+const WaterReflectionSVG = () => (
+  <svg width="56" height="68" viewBox="0 0 56 68" fill="none">
+    {[
+      { y: 5,  x1: 3,  x2: 53 },
+      { y: 14, x1: 7,  x2: 49 },
+      { y: 23, x1: 11, x2: 45 },
+      { y: 31, x1: 15, x2: 41 },
+      { y: 39, x1: 19, x2: 37 },
+      { y: 46, x1: 22, x2: 34 },
+      { y: 53, x1: 24, x2: 32 },
+      { y: 59, x1: 26, x2: 30 },
+    ].map(({ y, x1, x2 }, i) => (
+      <line
+        key={i}
+        x1={x1} y1={y} x2={x2} y2={y}
+        stroke="#C9A84C"
+        strokeWidth={i < 4 ? 2 : 1.5}
+        strokeLinecap="round"
+      />
+    ))}
+  </svg>
+);
+
 export default function AboutContent() {
   const [isRevealed, setIsRevealed] = useState(false);
 
@@ -208,6 +250,100 @@ export default function AboutContent() {
               </div>
             </FadeInUp>
           </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 3: Logo Concept ── */}
+      <section className="relative bg-[#0A1128] py-28 px-8 overflow-hidden border-t border-white/5">
+        <div
+          className="absolute inset-0 opacity-[0.08] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(circle at center, #ffffff 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+
+        <div className="max-w-5xl mx-auto relative z-10">
+          <FadeInUp className="text-center mb-20">
+            <p className="text-[#C9A84C] text-[10px] tracking-[0.6em] uppercase mb-4">
+              LOGO CONCEPT
+            </p>
+            <h2 className="text-2xl md:text-3xl font-light text-white tracking-wide">
+              별다섯시간이 담긴 이야기
+            </h2>
+          </FadeInUp>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-4">
+            {[
+              { visual: <FourPointStar size={60} />, label: "별", sub: "가치와 영감" },
+              {
+                visual: (
+                  <div className="w-14 h-14 flex items-center justify-center">
+                    <WaterReflectionSVG />
+                  </div>
+                ),
+                label: "물 위의 반영",
+                sub: "새로운 시각",
+              },
+              {
+                visual: <img src="/logo.png" alt="BYULSI Logo" className="w-14 h-14 object-contain" />,
+                label: "별의 반영",
+                sub: "새로운 시각의 발견",
+              },
+              {
+                visual: (
+                  <img
+                    src="/logo_vertical.png"
+                    alt="BYULSI Question"
+                    className="w-14 h-14 object-contain drop-shadow-[0_0_14px_rgba(244,208,63,0.5)]"
+                  />
+                ),
+                label: "끊임없는 물음표",
+                sub: "새로운 가능성",
+              },
+            ].map((item, i) => {
+              const connectors = ["+", "=", "→"];
+              return (
+                <div key={i} className="flex flex-col md:flex-row items-center gap-10 md:gap-4">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.2, duration: 0.7, ease: "easeOut" }}
+                    className="flex flex-col items-center gap-3"
+                  >
+                    <div className="w-20 h-20 flex items-center justify-center">{item.visual}</div>
+                    <div className="text-center">
+                      <p className="text-white text-sm font-medium tracking-wide">{item.label}</p>
+                      <p className="text-slate-500 text-xs mt-1">{item.sub}</p>
+                    </div>
+                  </motion.div>
+
+                  {i < connectors.length && (
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.3 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.2 + 0.12, duration: 0.4 }}
+                      className="text-[#C9A84C] text-2xl font-light select-none rotate-90 md:rotate-0"
+                    >
+                      {connectors[i]}
+                    </motion.span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <FadeInUp delay={0.9} className="text-center mt-20">
+            <p className="text-slate-400 text-sm md:text-base font-light leading-loose">
+              물 위에 비친 별의 빛을 모티브로,
+              <br />
+              <span className="text-white font-normal">시선의 변화</span>를 통해 가치를 발견하고
+              <br />
+              의미 있는 시간을 만들어갑니다.
+            </p>
+          </FadeInUp>
         </div>
       </section>
     </div>
