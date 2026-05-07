@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { CheckCircle2, Target, Settings, Zap, ChevronDown, MessageCircle, Star } from "lucide-react";
+import { CheckCircle2, Target, Settings, Zap, ChevronDown, MessageCircle, Star, ArrowRight } from "lucide-react";
 import React, { useRef, useEffect } from "react";
 import StarryBackground from "./StarryBackground";
 
@@ -191,8 +191,8 @@ export default function WorkContent() {
         <div className="max-w-6xl mx-auto">
           <SectionTitle subtitle="Services" title="제공 서비스" />
           
-          {/* 모바일: 스크롤 카드 스태킹 (Sticky) / PC: 기존 그리드 유지 */}
-          <div className="flex flex-col md:grid md:grid-cols-3 gap-[15vh] md:gap-8 pb-[20vh] md:pb-0">
+          {/* 모바일: 세로로 나열 / PC: 기존 그리드 유지 */}
+          <div className="flex flex-col md:grid md:grid-cols-3 gap-8 pb-12 md:pb-0">
             {[
               {
                 icon: <Target className="w-8 h-8" />,
@@ -266,6 +266,11 @@ export default function WorkContent() {
         <div className="max-w-6xl mx-auto relative z-10 w-full">
           <SectionTitle subtitle="Process" title="업무 프로세스" dark />
           
+          <div className="flex sm:hidden items-center justify-end gap-2 text-[#C9A84C] text-sm mb-4 px-6 animate-pulse">
+            <span>옆으로 넘겨서 확인하세요</span>
+            <ArrowRight size={16} />
+          </div>
+
           {/* 모바일: 가로 스크롤 스냅 (스와이프) / PC: 기존 그리드 유지 */}
           <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory sm:snap-none pb-8 sm:pb-0 -mx-6 px-6 sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
             {[
@@ -338,22 +343,22 @@ export default function WorkContent() {
               {
                 title: "통합 운영 역량",
                 sub: "기획과 실행의 완벽한 일치",
-                desc: "단편적인 운영이 아닌, 기획의 본질이 현장에서 100% 구현될 수 있도록 유기적으로 움직입니다.",
+                desc: "단편적인 운영이 아닌, 기획의 본질이 현장에서\n100% 구현될 수 있도록 유기적으로 움직입니다.",
               },
               {
                 title: "현장 중심 실행력",
                 sub: "디테일이 차이를 만듭니다",
-                desc: "수많은 현장 경험을 바탕으로 돌발 상황에 유연하게 대처하며 완성도 높은 결과를 보장합니다.",
+                desc: "수많은 현장 경험을 바탕으로 돌발 상황에 유연하게 대처하며\n완성도 높은 결과를 보장합니다.",
               },
               {
                 title: "맞춤형 기획",
                 sub: "우리에게 정해진 틀은 없습니다",
-                desc: "클라이언트의 아이덴티티와 교육 대상의 특성을 깊이 있게 분석하여 최적의 경로를 제안합니다.",
+                desc: "클라이언트의 아이덴티티와 교육 대상의 특성을 깊이 있게 분석하여\n최적의 경로를 제안합니다.",
               },
               {
                 title: "풍부한 파트너십",
                 sub: "검증된 전문 파트너",
-                desc: "기업, 대학교, 지자체 등 다양한 도메인에서의 성공 사례를 통해 이미 역량을 검증받았습니다.",
+                desc: "기업, 대학교, 지자체 등 다양한 도메인에서의\n성공 사례를 통해 이미 역량을 검증받았습니다.",
               },
             ].map((item, idx) => (
               <FadeInUp key={idx} delay={idx * 0.1} className="flex gap-6">

@@ -164,12 +164,12 @@ export default function HomeContent() {
           </motion.div>
         </div>
 
-        <div className="relative z-10 max-w-6xl w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
+        <div className="relative z-10 max-w-6xl w-full flex flex-col md:flex-row items-center justify-start gap-8 md:gap-16 px-4 md:px-0">
           <motion.div
             animate={{ y: [-15, 15, -15] }}
             transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
             style={{ perspective: 1000 }}
-            className="w-64 h-64 md:w-96 md:h-96 relative"
+            className="w-64 h-64 md:w-[28rem] md:h-[28rem] flex-shrink-0 relative"
           >
             <motion.img
               src="/logo.png"
@@ -182,17 +182,17 @@ export default function HomeContent() {
             />
           </motion.div>
 
-          <div className="text-center md:text-left">
+          <div className="text-left w-full">
             <FadeInUp delay={0.2}>
-              <p className="text-[#8B7355] text-lg md:text-xl font-light tracking-[0.2em] mb-4">
+              <p className="text-[#8B7355] text-lg md:text-2xl font-light tracking-[0.2em] mb-4">
                 새로운 시각, 끊임없는 물음
               </p>
-              <h1 className="text-4xl md:text-5xl font-medium tracking-tight mb-8 text-[#0A1128] leading-tight">
-                가치 있는 시간을 <br className="md:hidden" />
+              <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-medium tracking-tight mb-8 text-[#0A1128] leading-[1.1] break-keep">
+                가치 있는 시간을 <br />
                 <motion.span
                   animate={{ backgroundPosition: ["0% 50%", "200% 50%"] }}
                   transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-                  className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#C9A84C] via-[#FFF5A5] to-[#C9A84C]"
+                  className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#C9A84C] via-[#FFF5A5] to-[#C9A84C] mt-2 block"
                   style={{ backgroundSize: "200% auto" }}
                 >
                   선물합니다.
@@ -251,7 +251,7 @@ export default function HomeContent() {
               세상을 바라봅니다.
             </p>
             <p className="text-lg md:text-xl text-slate-400 font-light tracking-wide leading-relaxed">
-              작은 시선의 변화로,<br />
+              작은 시선의 변화로<br />
               같은 시간도 다르게 바라보고,<br />
               <span className="text-white font-normal">더 나은 가치</span>를 만듭니다.
             </p>

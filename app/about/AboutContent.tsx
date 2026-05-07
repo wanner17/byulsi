@@ -40,30 +40,14 @@ type Token = string | React.ReactNode;
  * 애플 스타일의 스크롤 텍스트 리빌 컴포넌트
  */
 const ScrollRevealText = ({ tokens }: { tokens: Token[] }) => {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 85%", "center 45%"],
-  });
-
-  const wordCount = tokens.filter((t) => typeof t === "string").length;
-  let wordIndex = 0;
-
   return (
-    <p ref={ref} className="text-2xl md:text-4xl font-bold leading-tight md:leading-snug break-keep">
+    <p className="text-2xl md:text-4xl font-bold leading-tight md:leading-snug break-keep text-white">
       {tokens.map((token, i) => {
         if (typeof token === "string") {
-          const start = wordIndex / wordCount;
-          const end = start + 1 / wordCount;
-          wordIndex++;
-
-          const opacity = useTransform(scrollYProgress, [start, end], [0.15, 1]);
-          const color = useTransform(scrollYProgress, [start, end], ["#475569", "#FFFFFF"]);
-
           return (
-            <motion.span key={i} style={{ opacity, color }} className="inline-block mr-[0.25em]">
+            <span key={i} className="inline-block mr-[0.25em]">
               {token}
-            </motion.span>
+            </span>
           );
         } else {
           return <React.Fragment key={i}>{token}</React.Fragment>;
@@ -82,10 +66,6 @@ export default function AboutContent() {
       {/* ── SECTION 1: Hero Banner ── */}
       <section id="hero" className="relative h-screen flex flex-col items-center justify-center px-8 overflow-hidden">
         <div className="absolute inset-0">
-          {/* 
-             이미지가 잘리는 위치 조절: object-center(중앙), object-top(상단 위주), object-bottom(하단 위주)
-             빈 공간이 생기더라도 전체를 다 보여주려면 object-cover 대신 object-contain 사용
-          */}
           <img src="/about-bg.png" alt="About Background" className="w-full h-full object-cover object-center" />
           <div className="absolute inset-0 bg-[#0A1128]/70" />
         </div>
@@ -95,7 +75,7 @@ export default function AboutContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="inline-block bg-[#1a2a5e]/50 backdrop-blur-md text-white text-3xl md:text-5xl font-bold px-12 py-6 border border-white/10 mb-6"
+            className="inline-block text-white text-3xl md:text-5xl font-bold mb-6"
           >
             About BYULSI
           </motion.h1>
