@@ -34,7 +34,7 @@ export default function Nav() {
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-center px-8 md:px-16 py-4 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-        <Link href="/" className="flex items-center z-[110]" onClick={handleLinkClick}>
+        <Link href="/" className="flex items-center z-[110] -translate-x-3.5" onClick={handleLinkClick}>
           <img src="/logo.png" alt="BYULSI" className="w-20 h-12 object-contain" />
           <div className="flex flex-col">
             <span className="text-[#0A1128] font-bold tracking-[0.25em] text-base md:text-lg leading-tight">
