@@ -32,13 +32,180 @@ const FadeInUp = ({
   </motion.div>
 );
 
+const FourPointStar = ({ size = 72 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 80 80" fill="none">
+    <defs>
+      <filter id="star-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="4" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+    <path
+      d="M40 4 L46 34 L76 40 L46 46 L40 76 L34 46 L4 40 L34 34 Z"
+      fill="#C9A84C"
+      filter="url(#star-glow)"
+    />
+  </svg>
+);
+
+const WaterReflectionSVG = ({ animated = true }: { animated?: boolean }) => (
+  <svg width="56" height="68" viewBox="0 0 56 68" fill="none">
+    {[
+      { y: 5,  x1: 3,  x2: 53 },
+      { y: 14, x1: 7,  x2: 49 },
+      { y: 23, x1: 11, x2: 45 },
+      { y: 31, x1: 15, x2: 41 },
+      { y: 39, x1: 19, x2: 37 },
+      { y: 46, x1: 22, x2: 34 },
+      { y: 53, x1: 24, x2: 32 },
+      { y: 59, x1: 26, x2: 30 },
+    ].map(({ y, x1, x2 }, i) => (
+      <motion.line
+        key={i}
+        x1={x1} y1={y} x2={x2} y2={y}
+        stroke="#C9A84C"
+        strokeWidth={i < 4 ? 2 : 1.5}
+        strokeLinecap="round"
+        initial={animated ? { opacity: 0 } : { opacity: 1 }}
+        animate={{ opacity: 1 }}
+        transition={animated ? { delay: i * 0.06, duration: 0.35 } : {}}
+      />
+    ))}
+  </svg>
+);
+
+const ConceptSection = () => {
+  const items = [
+    {
+      visual: <FourPointStar size={60} />,
+      label: "별",
+      sub: "가치와 영감",
+    },
+    {
+      visual: (
+        <div className="w-14 h-14 flex items-center justify-center">
+          <WaterReflectionSVG animated={false} />
+        </div>
+      ),
+      label: "물 위의 반영",
+      sub: "새로운 시각",
+    },
+    {
+      visual: (
+        <img
+          src="/logo.png"
+          alt="BYULSI Logo"
+          className="w-14 h-14 object-contain"
+        />
+      ),
+      label: "별의 반영",
+      sub: "새로운 시각의 발견",
+    },
+    {
+      visual: (
+        <img
+          src="/logo_vertical.png"
+          alt="BYULSI Question"
+          className="w-14 h-14 object-contain drop-shadow-[0_0_14px_rgba(244,208,63,0.5)]"
+        />
+      ),
+      label: "끊임없는 물음표",
+      sub: "새로운 가능성",
+    },
+  ];
+  const connectors = ["+", "=", "→"];
+
+  return (
+    <section className="relative bg-[#0A1128] py-28 px-8 overflow-hidden">
+      <div
+        className="absolute inset-0 opacity-[0.08] pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at center, #ffffff 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
+
+      <div className="max-w-5xl mx-auto relative z-10">
+        <FadeInUp className="text-center mb-20">
+          <p className="text-[#C9A84C] text-[10px] tracking-[0.6em] uppercase mb-4">
+            LOGO CONCEPT
+          </p>
+          <h2 className="text-2xl md:text-3xl font-light text-white tracking-wide">
+            별다섯시간이 담긴 이야기
+          </h2>
+        </FadeInUp>
+
+        <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-4">
+          {items.map((item, i) => (
+            <div
+              key={i}
+              className="flex flex-col md:flex-row items-center gap-10 md:gap-4"
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2, duration: 0.7, ease: "easeOut" }}
+                className="flex flex-col items-center gap-3"
+              >
+                <div className="w-20 h-20 flex items-center justify-center">
+                  {item.visual}
+                </div>
+                <div className="text-center">
+                  <p className="text-white text-sm font-medium tracking-wide">
+                    {item.label}
+                  </p>
+                  <p className="text-slate-500 text-xs mt-1">{item.sub}</p>
+                </div>
+              </motion.div>
+
+              {i < connectors.length && (
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.3 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.2 + 0.12, duration: 0.4 }}
+                  className="text-[#C9A84C] text-2xl font-light select-none rotate-90 md:rotate-0"
+                >
+                  {connectors[i]}
+                </motion.span>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <FadeInUp delay={0.9} className="text-center mt-20">
+          <p className="text-slate-400 text-sm md:text-base font-light leading-loose">
+            물 위에 비친 별의 빛을 모티브로,
+            <br />
+            <span className="text-white font-normal">시선의 변화</span>를 통해
+            가치를 발견하고
+            <br />
+            의미 있는 시간을 만들어갑니다.
+          </p>
+        </FadeInUp>
+      </div>
+    </section>
+  );
+};
+
 export default function HomeContent() {
   const router = useRouter();
   const [showSplash, setShowSplash] = useState(true);
+  const [splashPhase, setSplashPhase] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowSplash(false), 2000);
-    return () => clearTimeout(timer);
+    const timers = [
+      setTimeout(() => setSplashPhase(1), 300),
+      setTimeout(() => setSplashPhase(2), 850),
+      setTimeout(() => setSplashPhase(3), 1550),
+      setTimeout(() => setShowSplash(false), 3300),
+    ];
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   const mouseX = useMotionValue(0);
@@ -90,31 +257,71 @@ export default function HomeContent() {
             transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[999999] flex flex-col items-center justify-center bg-[#0A1128] pointer-events-auto"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-              className="flex flex-col items-center"
-            >
-              <img
-                src="/logo.png"
-                alt="BYULSI"
-                className="w-20 h-20 md:w-24 md:h-24 mb-8 object-contain filter drop-shadow-[0_0_20px_rgba(201,168,76,0.6)]"
-              />
-              <h1 className="text-2xl md:text-3xl font-light tracking-[0.4em] text-white flex items-center gap-4">
-                <span className="w-12 md:w-16 h-px bg-gradient-to-r from-transparent to-[#C9A84C]" />
-                BYULSI
-                <span className="w-12 md:w-16 h-px bg-gradient-to-l from-transparent to-[#C9A84C]" />
-              </h1>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.8 }}
-                className="mt-4 text-sm md:text-base text-[#C9A84C] font-light tracking-[0.6em] ml-[0.6em]"
-              >
-                별다섯시간
-              </motion.p>
-            </motion.div>
+            <AnimatePresence mode="wait">
+              {splashPhase < 3 ? (
+                <motion.div
+                  key="build"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, scale: 0.85, filter: "blur(6px)" }}
+                  transition={{ duration: 0.45 }}
+                  className="flex flex-col items-center gap-1"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: -20, scale: 0.5 }}
+                    animate={{ opacity: splashPhase >= 1 ? 1 : 0, y: 0, scale: 1 }}
+                    transition={{ duration: 0.55, ease: "backOut" }}
+                  >
+                    <FourPointStar size={76} />
+                  </motion.div>
+
+                  <AnimatePresence>
+                    {splashPhase >= 2 && (
+                      <motion.div
+                        key="water"
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.45 }}
+                      >
+                        <WaterReflectionSVG animated />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="logo"
+                  initial={{ opacity: 0, scale: 0.85, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="flex flex-col items-center"
+                >
+                  <img
+                    src="/logo.png"
+                    alt="BYULSI"
+                    className="w-20 h-20 md:w-24 md:h-24 mb-8 object-contain filter drop-shadow-[0_0_20px_rgba(201,168,76,0.6)]"
+                  />
+                  <motion.h1
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.35, duration: 0.6 }}
+                    className="text-2xl md:text-3xl font-light tracking-[0.4em] text-white flex items-center gap-4"
+                  >
+                    <span className="w-12 md:w-16 h-px bg-gradient-to-r from-transparent to-[#C9A84C]" />
+                    BYULSI
+                    <span className="w-12 md:w-16 h-px bg-gradient-to-l from-transparent to-[#C9A84C]" />
+                  </motion.h1>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.65 }}
+                    className="mt-4 text-sm md:text-base text-[#C9A84C] font-light tracking-[0.6em] ml-[0.6em]"
+                  >
+                    별다섯시간
+                  </motion.p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>
@@ -203,7 +410,7 @@ export default function HomeContent() {
         </div>
 
         <motion.button
-          onClick={() => scrollToSection("vision")}
+          onClick={() => scrollToSection("concept")}
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
           className="absolute bottom-10 flex flex-col items-center group cursor-pointer z-20"
@@ -215,7 +422,12 @@ export default function HomeContent() {
         </motion.button>
       </section>
 
-      {/* SECTION 2: Philosophy */}
+      {/* SECTION 2: Logo Concept Equation */}
+      <section id="concept">
+        <ConceptSection />
+      </section>
+
+      {/* SECTION 3: Philosophy */}
       <section
         id="vision"
         className="relative min-h-screen flex items-center justify-center px-8 overflow-hidden bg-[#0A1128]"

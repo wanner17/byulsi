@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface Star {
   id: number;
@@ -13,21 +13,18 @@ interface Star {
 }
 
 export default function StarryBackground() {
-  const [stars, setStars] = useState<Star[]>([]);
-
-  useEffect(() => {
-    const generateStars = () => {
-      return Array.from({ length: 70 }).map((_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 3 + 1,
-        duration: Math.random() * 3 + 2,
-        delay: Math.random() * 3,
-      }));
-    };
-    setStars(generateStars());
-  }, []);
+  const [stars] = useState<Star[]>(() =>
+    typeof window === "undefined"
+      ? []
+      : Array.from({ length: 70 }).map((_, i) => ({
+          id: i,
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          size: Math.random() * 3 + 1,
+          duration: Math.random() * 3 + 2,
+          delay: Math.random() * 3,
+        }))
+  );
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">

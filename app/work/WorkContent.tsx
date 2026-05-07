@@ -106,13 +106,10 @@ const ServiceCard = ({ service, delay, idx }: { service: ServiceData; delay: num
   };
 
   return (
-    // 모바일에서 카드가 순서대로 겹쳐 쌓이도록 top과 zIndex를 동적으로 부여합니다.
     <FadeInUp
       delay={delay} 
-      className="group sticky md:static" 
+      className="group" 
       style={{ 
-        top: `calc(15vh + ${idx * 20}px)`, 
-        zIndex: 10 + idx, 
         perspective: 1000 
       }}
     >
@@ -188,7 +185,7 @@ export default function WorkContent() {
 
       {/* ── SECTION 1: SERVICES ── */}
       <section id="services" className="py-24 px-6 relative min-h-screen flex flex-col justify-center">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto w-full">
           <SectionTitle subtitle="Services" title="제공 서비스" />
           
           {/* 모바일: 세로로 나열 / PC: 기존 그리드 유지 */}
@@ -199,59 +196,43 @@ export default function WorkContent() {
                 title: "교육 프로그램",
                 desc: (
                   <>
-                    대상자의 니즈와 교육 목적을 분석하여 <br />
-                    몰입도 높은 프로그램을 기획합니다.
+                    각 대상과 목적에 맞춤화된 <br />
+                    실행 중심의 교육을 설계합니다.
                   </>
                 ),
-                items: ["기업 교육 및 핵심가치 연수", "진로 탐색 및 체험형 교육", "팀빌딩 및 활동형 프로그램"],
+                items: ["기업 역량 강화 교육", "생애 주기별 맞춤 교육", "조직 활성화 워크숍"],
               },
               {
                 icon: <Zap className="w-8 h-8" />,
-                title: "행사 기획·주관",
+                title: "행사 및 팀빌딩",
                 desc: (
                   <>
-                    단순한 이벤트를 넘어 <br className="md:hidden" /> {/* 모바일 전용 */}
-                    메시지가 전달되는 <br /> {/* 공통 (PC/모바일 모두 줄바꿈) */}
-                    유의미한 현장을 만듭니다.
+                    단순한 재미를 넘어 <br />
+                    조직의 결속과 가치를 일깨웁니다.
                   </>
                 ),
-                items: ["기업/공공기관 공식 행사", "학교 축제 및 교내 행사", "성과 공유 및 컨퍼런스"],
+                items: ["이색 팀빌딩 프로그램", "사내 이벤트 기획 운영", "온오프라인 네트워킹"],
               },
               {
                 icon: <Settings className="w-8 h-8" />,
-                title: "맞춤 설계",
+                title: "기획 및 컨설팅",
                 desc: (
                   <>
-                    기성 프로그램이 아닌, <br /> {/* 공통 */}
-                    귀사만을 위한 <br className="md:hidden" /> {/* 모바일 전용 */}
-                    독창적인 콘텐츠를 개발합니다.
+                    브랜드의 정체성을 녹여낸 <br />
+                    최적의 콘텐츠와 경로를 제안합니다.
                   </>
                 ),
-                items: ["대상 특성 맞춤형 분석", "독자적 교육 콘텐츠 개발", "전문 운영 시나리오 설계"],
+                items: ["브랜딩 및 마케팅 컨설팅", "콘텐츠 기획 개발", "프로그램 운영 프로세스 구축"],
               },
             ].map((service, idx) => (
               <ServiceCard key={idx} service={service} delay={idx * 0.1} idx={idx} />
             ))}
           </div>
         </div>
-
-        {/* 2번 섹션 -> 3번 섹션 버튼 */}
-        <motion.button
-          onClick={() => scrollToSection("process")}
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="mt-16 flex flex-col items-center group cursor-pointer mx-auto"
-        >
-          <span className="text-[10px] tracking-[0.3em] text-gray-400 mb-2 border border-gray-200 px-4 py-2 rounded-full group-hover:border-gray-400 transition-colors">
-            PROCESS
-          </span>
-          <ChevronDown className="text-gray-300 w-5 h-5 group-hover:text-gray-500" />
-        </motion.button>
       </section>
 
-      {/* ── SECTION 2: PROCESS ── */}
-      <section id="process" className="py-24 px-6 bg-[#0A1128] relative overflow-hidden min-h-screen flex flex-col justify-center">
-        {/* Aceternity 스타일의 Aurora / 오로라 배경 효과 */}
+      {/* ── SECTION 2: PROCESS (SWIPE) ── */}
+      <section id="process" className="py-24 px-6 relative min-h-screen flex flex-col justify-center bg-[#0A1128] overflow-hidden">
         <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -308,31 +289,6 @@ export default function WorkContent() {
         </motion.button>
       </section>
 
-      {/* ── SECTION 2.5: INFINITE MARQUEE ── */}
-      <section className="py-12 bg-white border-y border-gray-100 overflow-hidden">
-        <motion.div
-          className="flex whitespace-nowrap"
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{
-            ease: 'linear',
-            duration: 40,
-            repeat: Infinity,
-          }}
-        >
-          {/* 콘텐츠를 두 번 렌더링하여 무한 루프 효과를 만듭니다. */}
-          {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex-shrink-0 flex items-center">
-              {["EDUCATION", "EVENT", "PLANNING", "CONSULTING", "TEAM-BUILDING", "BRANDING"].map((text) => (
-                <React.Fragment key={text + i}>
-                  <p className="mx-8 text-2xl font-bold tracking-tight text-gray-800">{text}</p>
-                  <Star className="w-5 h-5 text-[#C9A84C] fill-current" />
-                </React.Fragment>
-              ))}
-            </div>
-          ))}
-        </motion.div>
-      </section>
-
       {/* ── SECTION 3: WHY US (STRENGTH) ── */}
       <section id="strength" className="py-24 px-6 bg-[#FBFBFD] min-h-[80vh] flex flex-col justify-center">
         <div className="max-w-5xl mx-auto">
@@ -343,7 +299,7 @@ export default function WorkContent() {
               {
                 title: "통합 운영 역량",
                 sub: "기획과 실행의 완벽한 일치",
-                desc: "단편적인 운영이 아닌, 기획의 본질이 현장에서\n100% 구현될 수 있도록 유기적으로 움직입니다.",
+                desc: "단편적인 운영이 아닌, 기획의 본질이 현장에서 100%\n구현될 수 있도록 유기적으로 움직입니다.",
               },
               {
                 title: "현장 중심 실행력",
@@ -353,12 +309,18 @@ export default function WorkContent() {
               {
                 title: "맞춤형 기획",
                 sub: "우리에게 정해진 틀은 없습니다",
-                desc: "클라이언트의 아이덴티티와 교육 대상의 특성을 깊이 있게 분석하여\n최적의 경로를 제안합니다.",
+                desc: (
+                  <>
+                    클라이언트의 아이덴티티와 교육 대상의 특성을 깊이 있게 <br className="md:hidden" />
+                    분석하여 <br className="hidden md:block" />
+                    최적의 경로를 제안합니다.
+                  </>
+                ),
               },
               {
                 title: "풍부한 파트너십",
                 sub: "검증된 전문 파트너",
-                desc: "기업, 대학교, 지자체 등 다양한 도메인에서의\n성공 사례를 통해 이미 역량을 검증받았습니다.",
+                desc: "기업, 대학교, 지자체 등 다양한 도메인에서의 성공 사례를 통해\n이미 역량을 검증받았습니다.",
               },
             ].map((item, idx) => (
               <FadeInUp key={idx} delay={idx * 0.1} className="flex gap-6">
@@ -368,7 +330,7 @@ export default function WorkContent() {
                 <div>
                   <h4 className="text-[#0A1128] font-bold text-lg mb-1">{item.title}</h4>
                   <p className="text-[#C9A84C] text-sm font-semibold mb-3">{item.sub}</p>
-                  <p className="text-gray-500 text-sm leading-relaxed font-light">{item.desc}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed font-light whitespace-pre-line">{item.desc}</p>
                 </div>
               </FadeInUp>
             ))}

@@ -55,7 +55,7 @@ export default function ContactContent() {
 
   const cardMouseX = useMotionValue(0);
   const cardMouseY = useMotionValue(0);
-  const handleCardMouseMove = (e: any) => {
+  const handleCardMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const { left, top } = e.currentTarget.getBoundingClientRect();
     cardMouseX.set(e.clientX - left);
     cardMouseY.set(e.clientY - top);
@@ -186,9 +186,10 @@ export default function ContactContent() {
       <section className="py-20 px-6 bg-white">
         <FadeInUp className="max-w-4xl mx-auto bg-[#F4F4F7] rounded-[3rem] p-12 text-center shadow-inner">
           <h3 className="text-2xl md:text-3xl font-bold text-[#0A1128] mb-6 break-keep">
-            귀사의 가치 있는 시간을 위해
-            <br />
-            전문적인 파트너가 되어드리겠습니다.
+            귀사의 <br className="md:hidden" />
+            가치 있는 시간을 위해 <br className="md:hidden" />
+            전문적인 파트너가 <br className="md:hidden" />
+            되어드리겠습니다.
           </h3>
           <button
             onClick={() => window.open("http://pf.kakao.com/_GxhGjX/chat", "_blank")}
