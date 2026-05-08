@@ -178,7 +178,7 @@ export default function AboutContent() {
             animate={{ opacity: 1, letterSpacing: "0.4em" }}
             className="text-[#C9A84C] text-sm md:text-base font-light mb-4 uppercase translate-x-[0.2em]"
           >
-            가치를 높이는 시간을 선물합니다
+            가치를 높이는 <br className="md:hidden" />시간을 선물합니다
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
