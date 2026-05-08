@@ -229,7 +229,9 @@ export default function AboutContent() {
                 
                 <ScrollRevealText 
                   tokens={[
-                    "기업,", "학교,", "공공기관", "등", "다양한", "현장에서",
+                    "기업,", "학교,", "공공기관", "등", 
+                    <br key="br4" className="md:block" />,
+                    "다양한", "현장에서",
                     <br key="br4" className="md:block" />,
                     "각", "대상과", "목적에", "맞는",
                     <br key="br5" className="md:hidden" />,
