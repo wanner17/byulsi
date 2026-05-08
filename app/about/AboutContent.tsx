@@ -169,33 +169,37 @@ export default function AboutContent() {
       <section id="hero" className="relative h-screen flex flex-col items-center justify-center px-8 overflow-hidden">
         <div className="absolute inset-0">
           <img src="/about-bg.png" alt="About Background" className="w-full h-full object-cover object-center" />
-          <div className="absolute inset-0 bg-[#0A1128]/70" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A1128]/90 to-[#0A1128]/70" />
         </div>
         
-        <FadeInUp className="relative z-10 text-center">
+        <div className="relative z-10 text-center px-4">
+          <motion.p 
+            initial={{ opacity: 0, letterSpacing: "0.1em" }}
+            animate={{ opacity: 1, letterSpacing: "0.4em" }}
+            className="text-[#C9A84C] text-sm md:text-base font-light mb-4 uppercase translate-x-[0.2em]"
+          >
+            가치를 높이는 시간을 선물합니다
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="inline-block text-white text-3xl md:text-5xl font-bold mb-6"
+            className="text-white text-4xl md:text-6xl font-bold tracking-tighter"
           >
             About BYULSI
           </motion.h1>
-          <p className="text-slate-400 tracking-[0.4em] text-sm md:text-base uppercase font-light">
-            가치를 높이는 시간을 선물합니다
-          </p>
-        </FadeInUp>
+        </div>
 
         <motion.button
           onClick={() => scrollToSection("concept")}
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-10 flex flex-col items-center group cursor-pointer"
+          className="absolute bottom-10 flex flex-col items-center group cursor-pointer z-20"
         >
-          <span className="text-[10px] tracking-[0.3em] text-gray-500 mb-2 border border-gray-700 px-4 py-2 rounded-full group-hover:border-white transition-colors">
+          <span className="text-[10px] tracking-[0.3em] text-gray-400 mb-2 border border-gray-600 px-4 py-2 rounded-full group-hover:border-white transition-colors translate-x-[0.15em]">
             Scroll Down
           </span>
-          <ChevronDown className="text-gray-500 w-5 h-5 group-hover:text-white" />
+          <ChevronDown className="text-gray-400 w-5 h-5 group-hover:text-white" />
         </motion.button>
       </section>
 
@@ -246,16 +250,6 @@ export default function AboutContent() {
                     <span className="text-[#F4D03F]"> 새로운 가능성</span>을 상징합니다.
                   </motion.p>
                 </div>
-              </div>
-
-              <div className="mt-12">
-                <a
-                  href="/work"
-                  className="inline-flex items-center gap-3 border border-slate-600 text-white px-8 py-4 rounded-full hover:bg-white hover:text-[#0A1128] transition-all duration-300 text-sm font-medium group"
-                >
-                  서비스 자세히 보기 
-                  <ArrowRight size={18} className="text-[#F4D03F] group-hover:translate-x-1 transition-transform" />
-                </a>
               </div>
             </FadeInUp>
 
@@ -440,13 +434,21 @@ export default function AboutContent() {
           </div>
 
           <FadeInUp delay={0.9} className="text-center mt-20">
-            <p className="text-slate-400 text-sm md:text-base font-light leading-loose">
+            <p className="text-slate-400 text-sm md:text-base font-light leading-loose mb-12">
               물 위에 비친 별의 빛을 모티브로,
               <br />
               <span className="text-white font-normal">시선의 변화</span>를 통해 가치를 발견하고
               <br />
               의미 있는 시간을 만들어갑니다.
             </p>
+
+            <a
+              href="/work"
+              className="inline-flex items-center gap-3 border border-slate-600 text-white px-8 py-4 rounded-full hover:bg-white hover:text-[#0A1128] transition-all duration-300 text-sm font-medium group"
+            >
+              별다섯시간이 하는 일은?
+              <ArrowRight size={18} className="text-[#F4D03F] group-hover:translate-x-1 transition-transform" />
+            </a>
           </FadeInUp>
         </div>
       </section>

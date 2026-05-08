@@ -150,19 +150,22 @@ export default function WorkContent() {
           <img src="/about-bg.png" alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A1128]/90 to-[#0A1128]/70" />
         </div>
-        <FadeInUp className="relative z-10 text-center px-4">
+        <div className="relative z-10 text-center px-4">
+          <motion.p 
+            initial={{ opacity: 0, letterSpacing: "0.1em" }}
+            animate={{ opacity: 1, letterSpacing: "0.4em" }}
+            className="text-[#C9A84C] text-sm md:text-base font-light mb-4 uppercase translate-x-[0.2em]"
+          >
+            Our Professional Services
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="inline-block text-white text-4xl md:text-6xl font-bold mb-6 tracking-tighter"
+            className="text-4xl md:text-6xl font-bold text-white tracking-tighter"
           >
             What We Do
           </motion.h1>
-          <p className="text-[#C9A84C] tracking-[0.4em] text-sm md:text-base uppercase font-light">
-            Our Professional Services
-          </p>
-        </FadeInUp>
+        </div>
 
         {/* 1번 섹션 -> 2번 섹션 버튼 */}
         <motion.button
@@ -171,7 +174,7 @@ export default function WorkContent() {
           transition={{ repeat: Infinity, duration: 2 }}
           className="absolute bottom-10 flex flex-col items-center group cursor-pointer z-20"
         >
-          <span className="text-[10px] tracking-[0.3em] text-gray-400 mb-2 border border-gray-600 px-4 py-2 rounded-full group-hover:border-white transition-colors">
+          <span className="text-[10px] tracking-[0.3em] text-gray-400 mb-2 border border-gray-600 px-4 py-2 rounded-full group-hover:border-white transition-colors translate-x-[0.15em]">
             SERVICES
           </span>
           <ChevronDown className="text-gray-400 w-5 h-5 group-hover:text-white" />
@@ -332,26 +335,6 @@ export default function WorkContent() {
           </div>
         </div>
       </section>
-
-      {/* ── MOBILE FAB (KakaoTalk Floating Button) ── */}
-      <motion.button
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        transition={{ type: "spring", stiffness: 400, damping: 17, delay: 1 }}
-        onClick={() => {
-          // 모바일 기기에서 터치 시 기분 좋은 햅틱(진동) 피드백 발생 (지원하는 기기에 한함)
-          if (typeof navigator !== "undefined" && navigator.vibrate) {
-            navigator.vibrate([30, 50, 30]);
-          }
-          window.open("http://pf.kakao.com/_GxhGjX/chat", "_blank");
-        }}
-        className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[100] w-14 h-14 md:w-16 md:h-16 bg-[#FEE500] rounded-full flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.3)] border border-black/5"
-      >
-        <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-[#371D1E] fill-current" />
-      </motion.button>
-
     </div>
   );
 }

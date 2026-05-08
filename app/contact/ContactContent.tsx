@@ -167,7 +167,7 @@ export default function ContactContent() {
                     <p className="text-3xl md:text-4xl font-bold tracking-tight">
                       <AnimatedNumber value={1000} /><span className="text-[#C9A84C]">+</span>
                     </p>
-                    <p className="text-gray-400 text-xs mt-2 uppercase tracking-widest font-medium">Students</p>
+                    <p className="text-gray-400 text-xs mt-2 uppercase tracking-widest font-medium">Participant</p>
                   </div>
                   <div>
                     <p className="text-3xl md:text-4xl font-bold tracking-tight">
