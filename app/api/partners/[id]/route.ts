@@ -44,8 +44,12 @@ export async function DELETE(
   const partner = await prisma.partner.findUnique({ where: { id } });
   if (!partner) return Response.json({ error: "Not found" }, { status: 404 });
 
-  await deleteR2Image(partner.imageUrl);
   await prisma.partner.delete({ where: { id } });
+  try {
+    await deleteR2Image(partner.imageUrl);
+  } catch {
+    // R2 이미지 삭제 실패해도 DB는 이미 삭제됨
+  }
 
   return Response.json({ ok: true });
 }
