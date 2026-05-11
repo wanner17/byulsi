@@ -186,24 +186,21 @@ export default function HomeContent() {
                     alt="BYULSI"
                     className="w-20 h-20 md:w-24 md:h-24 mb-8 object-contain filter drop-shadow-[0_0_20px_rgba(201,168,76,0.6)]"
                   />
-                  <motion.h1
+                  <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.35, duration: 0.6 }}
-                    className="text-2xl md:text-3xl font-light tracking-[0.4em] text-white flex items-center gap-4"
+                    className="flex flex-col items-center gap-4"
                   >
-                    <span className="w-12 md:w-16 h-px bg-gradient-to-r from-transparent to-[#C9A84C]" />
-                    BYULSI
-                    <span className="w-12 md:w-16 h-px bg-gradient-to-l from-transparent to-[#C9A84C]" />
-                  </motion.h1>
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.65 }}
-                    className="mt-4 text-sm md:text-base text-[#C9A84C] font-light tracking-[0.6em] ml-[0.6em]"
-                  >
-                    별다섯시간
-                  </motion.p>
+                    <h1 className="text-2xl md:text-3xl font-light tracking-[0.4em] text-white flex items-center gap-4">
+                      <span className="w-12 md:w-16 h-px bg-gradient-to-r from-transparent to-[#C9A84C]" />
+                      BYULSI
+                      <span className="w-12 md:w-16 h-px bg-gradient-to-l from-transparent to-[#C9A84C]" />
+                    </h1>
+                    <p className="text-sm md:text-base text-[#C9A84C] font-light tracking-[0.6em] ml-[0.6em]">
+                      별다섯시간
+                    </p>
+                  </motion.div>
                 </motion.div>
               )}
             </AnimatePresence>

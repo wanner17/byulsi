@@ -46,7 +46,7 @@ const SectionTitle = ({ subtitle, title, dark = false }: { subtitle: string; tit
     >
       {subtitle}
     </motion.span>
-    <h2 className={`text-3xl md:text-4xl font-bold tracking-tight ${dark ? 'text-white' : 'text-[#0A1128]'}`}>
+    <h2 className={`text-4xl md:text-5xl font-bold tracking-tight ${dark ? 'text-white' : 'text-[#0A1128]'}`}>
       {title}
     </h2>
     <div className={`w-12 h-[2px] ${dark ? 'bg-[#C9A84C]' : 'bg-[#0A1128]'} mx-auto mt-6 opacity-30`} />
@@ -130,11 +130,11 @@ const ServiceCard = ({ service, delay }: { service: ServiceData; delay: number }
           <div className="w-16 h-16 bg-[#F9F7F2] rounded-2xl flex items-center justify-center text-[#C9A84C] mb-8 group-hover:bg-[#0A1128] group-hover:text-white transition-colors duration-500">
             {service.icon}
           </div>
-          <h3 className="text-xl font-bold text-[#0A1128] mb-4">{service.title}</h3>
-          <p className="text-gray-500 text-sm leading-relaxed mb-8">{service.desc}</p>
+          <h3 className="text-2xl font-bold text-[#0A1128] mb-4">{service.title}</h3>
+          <p className="text-gray-500 text-base leading-relaxed mb-8">{service.desc}</p>
           <ul className="space-y-3">
             {service.items.map((item, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+              <li key={i} className="flex items-start gap-2 text-base text-gray-600">
                 <CheckCircle2 className="w-4 h-4 text-[#C9A84C] mt-0.5 flex-shrink-0" />
                 <span>{item}</span>
               </li>
@@ -156,7 +156,7 @@ const PartnerCard = ({ partner }: { partner: Partner }) => (
       />
     </div>
     <div className="px-6 py-5">
-      <p className="text-base font-semibold text-[#0A1128] leading-tight">{partner.name}</p>
+      <p className="text-lg font-semibold text-[#0A1128] leading-tight">{partner.name}</p>
     </div>
   </div>
 );
@@ -297,6 +297,18 @@ export default function WorkContent({ partners = [] }: { partners?: Partner[] })
             ))}
           </div>
         </div>
+
+        <motion.button
+          onClick={() => scrollToSection("process")}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+          className="absolute bottom-10 flex flex-col items-center group cursor-pointer z-20 left-1/2 -translate-x-1/2"
+        >
+          <span className="text-[10px] tracking-[0.3em] text-gray-400 mb-2 border border-gray-300 px-4 py-2 rounded-full group-hover:border-[#0A1128] transition-colors translate-x-[0.15em]">
+            PROCESS
+          </span>
+          <ChevronDown className="text-gray-400 w-5 h-5 group-hover:text-[#0A1128]" />
+        </motion.button>
       </section>
 
       {/* ── SECTION 2: PROCESS (SWIPE) ── */}
@@ -333,8 +345,8 @@ export default function WorkContent({ partners = [] }: { partners?: Partner[] })
                   <span className="text-4xl font-black text-white/10 absolute top-4 right-6 transition-colors">
                     {step.num}
                   </span>
-                  <h4 className="text-[#C9A84C] font-bold text-lg mb-4">{step.title}</h4>
-                  <p className="text-gray-400 text-sm leading-relaxed whitespace-pre-line font-light">
+                  <h4 className="text-[#C9A84C] font-bold text-xl mb-4">{step.title}</h4>
+                  <p className="text-gray-400 text-base leading-relaxed whitespace-pre-line font-light">
                     {step.desc}
                   </p>
                 </div>
@@ -358,10 +370,10 @@ export default function WorkContent({ partners = [] }: { partners?: Partner[] })
       </section>
 
       {/* ── SECTION 3: WHY US (STRENGTH) ── */}
-      <section id="strength" className="py-24 px-6 bg-[#FBFBFD] min-h-[80vh] flex flex-col justify-center">
+      <section id="strength" className="relative py-24 px-6 bg-[#FBFBFD] min-h-[80vh] flex flex-col justify-center">
         <div className="max-w-5xl mx-auto">
           <SectionTitle subtitle="Strength" title="왜 별다섯시간인가" />
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
             {[
               {
@@ -396,14 +408,26 @@ export default function WorkContent({ partners = [] }: { partners?: Partner[] })
                   0{idx + 1}
                 </div>
                 <div>
-                  <h4 className="text-[#0A1128] font-bold text-lg mb-1">{item.title}</h4>
-                  <p className="text-[#C9A84C] text-sm font-semibold mb-3">{item.sub}</p>
-                  <p className="text-gray-500 text-sm leading-relaxed font-light whitespace-pre-line">{item.desc}</p>
+                  <h4 className="text-[#0A1128] font-bold text-xl mb-1">{item.title}</h4>
+                  <p className="text-[#C9A84C] text-base font-semibold mb-3">{item.sub}</p>
+                  <p className="text-gray-500 text-base leading-relaxed font-light whitespace-pre-line">{item.desc}</p>
                 </div>
               </FadeInUp>
             ))}
           </div>
         </div>
+
+        <motion.button
+          onClick={() => scrollToSection("partners")}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+          className="absolute bottom-10 flex flex-col items-center group cursor-pointer z-20 left-1/2 -translate-x-1/2"
+        >
+          <span className="text-[10px] tracking-[0.3em] text-gray-400 mb-2 border border-gray-300 px-4 py-2 rounded-full group-hover:border-[#0A1128] transition-colors translate-x-[0.15em]">
+            PARTNERS
+          </span>
+          <ChevronDown className="text-gray-400 w-5 h-5 group-hover:text-[#0A1128]" />
+        </motion.button>
       </section>
 
       {/* ── SECTION 4: PARTNERS ── */}
