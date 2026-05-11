@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   keywords: ["별다섯시간", "BYULSI", "기업교육", "행사기획", "맞춤설계", "워크샵", "교육프로그램"],
   openGraph: {
     title: "별다섯시간(BYULSI)",
-    description: "가치를 높이는 시간을 선물합니다. 교육 및 행사기획 전문.",
+    description: "가치를 높이는 시간을 선물합니다.\n교육 및 행사기획 전문.",
     type: "website",
     locale: "ko_KR",
   },
