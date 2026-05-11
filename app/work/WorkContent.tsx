@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { CheckCircle2, Target, Settings, Zap, ChevronDown, MessageCircle, Star, ArrowRight } from "lucide-react";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 /**
  * 특정 섹션으로 부드럽게 스크롤하는 함수
@@ -60,7 +60,14 @@ interface ServiceData {
   items: string[];
 }
 
-const ServiceCard = ({ service, delay, idx }: { service: ServiceData; delay: number; idx: number }) => {
+interface Partner {
+  id: string;
+  name: string;
+  imageUrl: string;
+  order: number;
+}
+
+const ServiceCard = ({ service, delay }: { service: ServiceData; delay: number }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
@@ -139,7 +146,70 @@ const ServiceCard = ({ service, delay, idx }: { service: ServiceData; delay: num
   );
 };
 
-export default function WorkContent() {
+const PartnerCard = ({ partner }: { partner: Partner }) => (
+  <div className="flex flex-col w-72 flex-shrink-0 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-[#C9A84C]/40 transition-all duration-300 group overflow-hidden">
+    <div className="w-full h-56 bg-gray-50 flex items-center justify-center overflow-hidden">
+      <img
+        src={partner.imageUrl}
+        alt={partner.name}
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+      />
+    </div>
+    <div className="px-6 py-5">
+      <p className="text-base font-semibold text-[#0A1128] leading-tight">{partner.name}</p>
+    </div>
+  </div>
+);
+
+const PartnersSection = ({ partners }: { partners: Partner[] }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [shouldScroll, setShouldScroll] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      if (!containerRef.current || !trackRef.current) return;
+      setShouldScroll(trackRef.current.scrollWidth > containerRef.current.clientWidth);
+    };
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, [partners]);
+
+  return (
+    <section id="partners" className="py-24 bg-[#FBFBFD] overflow-hidden">
+      <div className="mb-16">
+        <SectionTitle subtitle="Partners" title="함께한 파트너사" />
+      </div>
+      {partners.length === 0 ? (
+        <p className="text-center text-gray-400 text-sm py-8">파트너사 정보를 준비 중입니다.</p>
+      ) : (
+        <div ref={containerRef} className="relative">
+          {shouldScroll && (
+            <>
+              <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#FBFBFD] to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#FBFBFD] to-transparent z-10 pointer-events-none" />
+            </>
+          )}
+          <div
+            ref={trackRef}
+            className={
+              shouldScroll
+                ? "flex gap-6 w-max animate-marquee hover:[animation-play-state:paused]"
+                : "flex gap-6 w-max mx-auto"
+            }
+          >
+            {(shouldScroll ? [...partners, ...partners] : partners).map((partner, i) => (
+              <PartnerCard key={`${partner.id}-${i}`} partner={partner} />
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+};
+
+export default function WorkContent({ partners = [] }: { partners?: Partner[] }) {
   // position: sticky가 정상 작동하도록 overflow-x-hidden을 overflow-x-clip으로 변경합니다.
   return (
     <div className="bg-white font-sans overflow-x-clip">
@@ -223,7 +293,7 @@ export default function WorkContent() {
                 items: ["브랜딩 및 마케팅 컨설팅", "콘텐츠 기획 개발", "프로그램 운영 프로세스 구축"],
               },
             ].map((service, idx) => (
-              <ServiceCard key={idx} service={service} delay={idx * 0.1} idx={idx} />
+              <ServiceCard key={idx} service={service} delay={idx * 0.1} />
             ))}
           </div>
         </div>
@@ -335,6 +405,10 @@ export default function WorkContent() {
           </div>
         </div>
       </section>
+
+      {/* ── SECTION 4: PARTNERS ── */}
+      <PartnersSection partners={partners} />
+
     </div>
   );
 }
