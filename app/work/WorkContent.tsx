@@ -268,7 +268,7 @@ export default function WorkContent({ partners = [] }: { partners?: Partner[] })
                     실행 중심의 교육을 설계합니다.
                   </>
                 ),
-                items: ["기업 역량 강화 교육", "생애 주기별 맞춤 교육", "조직 활성화 워크숍"],
+                items: ["기업교육 및 연수", "진로 및 체험형 교육", "활동형 프로그램 운영"],
               },
               {
                 icon: <Zap className="w-8 h-8" />,
